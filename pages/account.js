@@ -4,9 +4,7 @@ import Page from '../components/Page';
 const Account = (props) => {
   return (
     <div>
-      <Page>
-        <p>oke</p>
-      </Page>
+      <p>oke</p>
     </div>
   );
 };

@@ -32,7 +32,6 @@ export default class MyDocument extends Document {
       <Html lang="en-CA">
         <Head/>
         <body>
-          <p>oke</p>
           <Main/>
           <NextScript/>
         </body>

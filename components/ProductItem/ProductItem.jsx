@@ -1,9 +1,11 @@
 import React from 'react';
 import ItemStyles from '../styles/ItemStyles';
-import Image from 'next/image';
+import Title from '../styles/Title';
+import Link from 'next/link';
+import PriceTag from '../styles/PriceTag';
+import formatMoney from '../../lib/formatMoney';
 const ProductItem = (props) => {
-  const { name, description, photo } = props;
-  console.log({ photo });
+  const { name, description, photo, price } = props;
 
   const { altText = '', image, id } = photo || {};
   const imageSrc = image?.publicUrlTransformed || '';
@@ -11,10 +13,17 @@ const ProductItem = (props) => {
   return (
     <div>
       <ItemStyles>
-        <h2>{name}</h2>
-        <p>{description}</p>
         <img alt={altText} src={imageSrc}/>
-        {description}
+        {
+          price && (
+            <PriceTag>
+              {formatMoney(price)}
+            </PriceTag>
+          )
+        }
+        <Title>
+          <Link href={`product/${id}`}>{name}</Link>
+        </Title>
       </ItemStyles>
     </div>
   );

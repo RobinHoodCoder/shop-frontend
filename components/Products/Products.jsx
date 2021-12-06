@@ -11,6 +11,7 @@ const Products = (props) => {
           id
           name
           description
+          price
           photo {
               altText
               id
@@ -45,11 +46,12 @@ const Products = (props) => {
         data && (
           data.allProducts?.length && (
             data.allProducts.map((item, i) => {
-              const { name, id, description, photo } = item;
+              const { name, id, description, photo, price } = item;
               console.log({ allProductsItem: photo });
               if (!!photo) {
                 return (
                   <ProductItem
+                    price={price}
                     name={name}
                     description={description}
                     photo={photo}

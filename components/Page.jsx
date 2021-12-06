@@ -28,22 +28,26 @@ const GlobalStyles = createGlobalStyle`
     --lightGrey: #909090;
     --lightGray: #909090;
     --off-white: #d0d0d0;
-    max-width: 1000px;
+    font-size: 11px;
     --bs: 0 12px 24px 0 rgba(0, 0, 0, 0.9);
     box-sizing: border-box;
+    padding:0;
+    margin:0;
     *,*:before, *:after {
       box-sizing: inherit;
     }
   }
   
   body {
+    padding: 0;
+    margin: 0;
     font-family: -apple-system,
     "radnika_next",
     "Helvetica",
     "Segoe UI",
     "Roboto",
      sans-serif;
-     font-size: 1.5rem;
+     font-size: 62.5%;
      line-height: 2;
   }
   a {
@@ -71,15 +75,15 @@ const InnerStyles = styled.div`
 
 const Page = (props) => {
   return (
+    <div>
+      <GlobalStyles />
       <div>
-        <GlobalStyles />
-        <div>
-          <Header />
-          <InnerStyles>
-            {props.children}
-          </InnerStyles>
-        </div>
+        <Header />
+        <InnerStyles>
+          {props.children}
+        </InnerStyles>
       </div>
+    </div>
   );
 };
 export default Page;

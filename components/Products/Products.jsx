@@ -12,9 +12,11 @@ const Products = (props) => {
           name
           description
           photo {
+              altText
+              id
               image
               {
-                  publicUrlTransformed
+                publicUrlTransformed
               }
           }
       }
@@ -44,9 +46,17 @@ const Products = (props) => {
           data.allProducts?.length && (
             data.allProducts.map((item, i) => {
               const { name, id, description, photo } = item;
-              return (
-                <ProductItem name={name} description={description} photo={photo} key={id}/>
-              );
+              console.log({ allProductsItem: photo });
+              if (!!photo) {
+                return (
+                  <ProductItem
+                    name={name}
+                    description={description}
+                    photo={photo}
+                    key={id}
+                  />
+                );
+              }
             })
           )
         )

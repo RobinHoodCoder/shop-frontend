@@ -3,8 +3,6 @@ import { useForm } from '../../lib/useForm';
 import Form from '../styles/Form';
 
 const CreateProduct = (props) => {
-  const { dummy } = props;
-
   const { formValues, handleChange, resetForm, clearForm } = useForm(
     {
       name: '',
@@ -14,19 +12,11 @@ const CreateProduct = (props) => {
   );
 
   return (
-    <Form>
+    <Form onSubmit={(e) => {
+      e.preventDefault();
+      console.log(formValues);
+    }}>
       <fieldset aria-busy={false}>
-        <label htmlFor="image">
-          File
-          <input
-            type="file"
-            id={'image'}
-            name={'image'}
-            placeholder={'file'}
-            onChange={e => handleChange(e)}
-            value={formValues.file}
-          />
-        </label>
         <label htmlFor="name">
         Name
           <input
@@ -38,6 +28,16 @@ const CreateProduct = (props) => {
             value={formValues.name}
           />
         </label>
+        <label htmlFor="description">
+          Description
+          <textarea
+            id={'description'}
+            name={'description'}
+            placeholder={'description'}
+            onChange={e => handleChange(e)}
+            value={formValues.description}
+          />
+        </label>
         <label htmlFor="price">
           Price
           <input
@@ -47,6 +47,17 @@ const CreateProduct = (props) => {
             placeholder={'price'}
             onChange={e => handleChange(e)}
             value={formValues.price}
+          />
+        </label>
+        <label htmlFor="image">
+          Image
+          <input
+            type="file"
+            id={'image'}
+            name={'image'}
+            placeholder={'file'}
+            onChange={e => handleChange(e)}
+            value={formValues.file}
           />
         </label>
       </fieldset>

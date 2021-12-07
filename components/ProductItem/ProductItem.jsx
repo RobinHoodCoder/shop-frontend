@@ -4,6 +4,8 @@ import Title from '../styles/Title';
 import Link from 'next/link';
 import PriceTag from '../styles/PriceTag';
 import formatMoney from '../../lib/formatMoney';
+import Description from '../styles/Description';
+import LinkBlock from '../styles/LinkBlock';
 const ProductItem = (props) => {
   const { name, description, photo, price } = props;
 
@@ -11,21 +13,26 @@ const ProductItem = (props) => {
   const imageSrc = image?.publicUrlTransformed || '';
 
   return (
-    <div>
-      <ItemStyles>
-        <img alt={altText} src={imageSrc}/>
-        {
-          price && (
-            <PriceTag>
-              {formatMoney(price)}
-            </PriceTag>
-          )
-        }
-        <Title>
-          <Link href={`product/${id}`}>{name}</Link>
-        </Title>
-      </ItemStyles>
-    </div>
+    <LinkBlock>
+      <Link href={`product/${id}`}>
+        <ItemStyles>
+          <img alt={altText} src={imageSrc}/>
+          {
+            price && (
+              <PriceTag>
+                {formatMoney(price)}
+              </PriceTag>
+            )
+          }
+          <Title>
+            <span>{name}</span>
+          </Title>
+          <Description>
+            {description}
+          </Description>
+        </ItemStyles>
+      </Link>
+    </LinkBlock>
   );
 };
 

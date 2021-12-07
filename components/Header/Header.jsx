@@ -4,7 +4,7 @@ import Nav from '../Nav/Nav';
 import Search from '../Search/Search';
 
 const Logo = styled.h1`
-  font-size: 4rem;
+  font-size: 3.5rem;
   margin-left: 2rem;
   position: relative;
   z-index: 2;
@@ -15,6 +15,9 @@ const Logo = styled.h1`
     text-decoration: none;
     text-transform: uppercase;
     padding: 0.5rem 1rem;
+    &:hover {
+      text-decoration-color: #fff;
+    }
   }
 `;
 

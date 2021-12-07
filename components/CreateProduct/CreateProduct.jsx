@@ -3,6 +3,8 @@ import { useForm } from '../../lib/useForm';
 import Form from '../styles/Form';
 import gql from 'graphql-tag';
 import { useMutation } from '@apollo/client';
+import ErrorMessage from '../ErrorMessage';
+import DisplayError from '../ErrorMessage';
 
 const inititalState = {
   name: '',
@@ -60,6 +62,7 @@ const CreateProduct = (props) => {
       const res = await createProduct();
       console.log(res);
     }}>
+      <DisplayError error={error}/>
       <fieldset aria-busy={loading} disabled={loading}>
         <label htmlFor="name">
         Name

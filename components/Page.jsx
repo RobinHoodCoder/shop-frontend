@@ -28,8 +28,8 @@ const GlobalStyles = createGlobalStyle`
     --lightGrey: #909090;
     --lightGray: #909090;
     --off-white: #d0d0d0;
-    font-size: 11px;
-    --bs: 0 12px 24px 0 rgba(0, 0, 0, 0.9);
+    font-size: 16px;
+    --bs: 0 9px 18px 0 rgba(0, 0, 0, 0.49);
     box-sizing: border-box;
     padding:0;
     margin:0;
@@ -55,7 +55,8 @@ const GlobalStyles = createGlobalStyle`
     color: var(--black);
   }
   a:hover {
-    text-decoration: underline;    
+    text-decoration: underline;
+    text-decoration-color: inherit;    
   }
   button {
     font-family: -apple-system,

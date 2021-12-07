@@ -10,7 +10,7 @@ const Title = styled.h3`
   span {
     text-decoration-color: #fff;
     background: var(--red);
-    display: inline;
+    display: inline-block;
     line-height: 1.3;
     font-size: 3.5rem;
     text-align: center;

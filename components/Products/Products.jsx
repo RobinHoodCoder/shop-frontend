@@ -3,26 +3,10 @@ import gql from 'graphql-tag';
 import { useQuery } from '@apollo/client';
 import styled from 'styled-components';
 import ProductItem from '../ProductItem/ProductItem';
+import { Q_ALL_PRODUCTS } from '../../gql/queries';
 
 
 const Products = (props) => {
-  const Q_ALL_PRODUCTS = gql`query ALL_PRODUCTS {
-      allProducts {
-          id
-          name
-          description
-          price
-          photo {
-              altText
-              id
-              image
-              {
-                publicUrlTransformed
-              }
-          }
-      }
-  }
-  `;
   const { data, loading, error } = useQuery(Q_ALL_PRODUCTS);
 
 

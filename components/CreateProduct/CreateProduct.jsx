@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import { useForm } from '../../lib/useForm';
 import Form from '../styles/Form';
 import gql from 'graphql-tag';
@@ -6,6 +6,7 @@ import { useMutation } from '@apollo/client';
 import DisplayError from '../ErrorMessage';
 import { M_CREATE_PRODUCT } from '../../gql/mutations';
 import { Q_ALL_PRODUCTS } from '../../gql/queries';
+import slugify from 'slugify';
 
 
 const CreateProduct = (props) => {
@@ -23,12 +24,13 @@ const CreateProduct = (props) => {
   } = useForm(
     initialState
   );
+  const slug = slugify(formValues.name);
 
 
-  const [createProduct, { loading, error }] = useMutation(
+  const [createProduct, { loading, error, data }] = useMutation(
     M_CREATE_PRODUCT,
     {
-      variables: formValues,
+      variables: { slug, ...formValues },
       refetchQueries: [{ query: Q_ALL_PRODUCTS }],
     }
   );
@@ -86,7 +88,21 @@ const CreateProduct = (props) => {
           />
         </label>
       </fieldset>
-      <button type={'submit'}>+ New product ( {formValues.name || '...'})</button>
+      {
+        data?.name && (
+          <p>
+            {data.name} <a href={`/product/${data?.id}`}>Preview> </a>
+          </p>
+        )
+      }
+
+      <button type={'submit'}>
+          + New product
+      </button>
+      <button type={'submit'}>
+        Preview
+      </button>
+
       <hr/>
       <button onClick={resetForm}>
         Reset form

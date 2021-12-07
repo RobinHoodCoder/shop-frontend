@@ -1,6 +1,6 @@
 import Page from '../components/Page';
 import NProgress from 'nprogress';
-import withApollo from '../lib/withData';
+import withData from '../lib/withData';
 
 import 'nprogress/nprogress.css';
 import Router from 'next/router';
@@ -29,6 +29,8 @@ function MyApp({ Component, pageProps, apollo }) {
 MyApp.getInitialProps = async function ({ Component, ctx }) {
   let pageProps = {};
 
+  console.log({ ctx, Component });
+
   if (Component.getInitialProps) {
     pageProps = await Component.getInitialProps(ctx);
   }
@@ -36,4 +38,4 @@ MyApp.getInitialProps = async function ({ Component, ctx }) {
   return { pageProps };
 };
 
-export default withApollo(MyApp)
+export default withData(MyApp);

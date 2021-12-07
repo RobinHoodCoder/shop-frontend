@@ -17,3 +17,24 @@ export const Q_ALL_PRODUCTS = gql`query ALL_PRODUCTS {
     }
 }
 `;
+export const Q_SINGLE_PRODUCT = gql`
+    query SINGLE_PRODUCT (
+       $id: ID!
+    ) 
+    {
+        Product(where: {id: $id}) {
+            id
+            name
+            description
+            price
+            photo {
+                altText
+                id
+                image
+                {
+                    publicUrlTransformed
+                }
+            }
+        }
+    }
+`;

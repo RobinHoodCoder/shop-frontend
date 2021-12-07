@@ -31,10 +31,10 @@ const Products = (props) => {
           data.allProducts?.length && (
             data.allProducts.map((item, i) => {
               const { name, id, description, photo, price } = item;
-              console.log({ allProductsItem: photo });
               if (!!photo) {
                 return (
                   <ProductItem
+                    id={id}
                     price={price}
                     name={name}
                     description={description}

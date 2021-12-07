@@ -7,14 +7,16 @@ import formatMoney from '../../lib/formatMoney';
 import Description from '../styles/Description';
 import LinkBlock from '../styles/LinkBlock';
 const ProductItem = (props) => {
-  const { name, description, photo, price } = props;
+  const { name, description, photo, price, id } = props;
 
-  const { altText = '', image, id } = photo || {};
+  const { altText = '', image } = photo || {};
   const imageSrc = image?.publicUrlTransformed || '';
 
   return (
     <LinkBlock>
-      <Link href={`product/${id}`}>
+      <Link
+        href={`/product/${id}`}
+      >
         <ItemStyles>
           <img alt={altText} src={imageSrc}/>
           {

@@ -1,22 +1,66 @@
 import React, { useState } from 'react';
 import { useForm } from '../../lib/useForm';
 import Form from '../styles/Form';
+import gql from 'graphql-tag';
+import { useMutation } from '@apollo/client';
+
+const inititalState = {
+  name: '',
+  price: 999,
+  image: '',
+  description: '',
+};
 
 const CreateProduct = (props) => {
   const { formValues, handleChange, resetForm, clearForm } = useForm(
+    inititalState
+  );
+
+  const CREATE_PRODUCT_MUTATION = gql`
+    mutation CREATE_PRODUCT_MUTATION (
+        $name: String!
+        $description: String!
+        $price: Int!
+        $image: Upload
+    ) {
+        createProduct(
+            data: {
+              name: $name
+              description: $description
+              price: $price
+              status: "AVAILABLE"
+              photo: {
+                create: { 
+                    image: $image, 
+                    altText: $name 
+                }
+              }
+            }
+        ) {
+            id
+            price
+            description
+            name
+            id
+        }
+    }
+  `;
+
+  const [createProduct, { loading, error, data }] = useMutation(
+    CREATE_PRODUCT_MUTATION,
     {
-      name: '',
-      price: 999,
-      image: '',
+      variables: formValues,
     }
   );
 
   return (
-    <Form onSubmit={(e) => {
+    <Form onSubmit={async (e) => {
       e.preventDefault();
       console.log(formValues);
+      const res = await createProduct();
+      console.log(res);
     }}>
-      <fieldset aria-busy={false}>
+      <fieldset aria-busy={loading} disabled={loading}>
         <label htmlFor="name">
         Name
           <input
@@ -61,7 +105,7 @@ const CreateProduct = (props) => {
           />
         </label>
       </fieldset>
-      <button type={'submit'}>+ Add {formValues.name}</button>
+      <button type={'submit'}>+ New product ( {formValues.name || '...'})</button>
       <hr/>
       <button onClick={resetForm}>
         Reset form

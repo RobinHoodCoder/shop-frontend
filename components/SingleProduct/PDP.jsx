@@ -4,15 +4,13 @@ import { Q_SINGLE_PRODUCT } from '../../gql/queries';
 import DisplayError from '../ErrorMessage';
 import  Head from 'next/head';
 import styled from 'styled-components';
-import formatMoney from '../../lib/formatMoney';
 import Price from '../Price/Price';
-import Title from '../styles/Title';
 import TitleBlock from '../TitleBlock/TitleBlock';
 import Link from 'next/link';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCoffee, faEdit } from '@fortawesome/free-solid-svg-icons';
 
-const SingleProduct = ({ id }) => {
+const PDP = ({ id }) => {
   const { data = {}, loading, error } = useQuery(Q_SINGLE_PRODUCT, { variables: { id } });
   const { Product = {} }  = data;
 
@@ -47,7 +45,7 @@ const SingleProduct = ({ id }) => {
         !loading && (
           <ProductStyles>
             <div className="img-container">
-              <img src={photo.image.publicUrlTransformed} alt={photo.altText} />
+              <img src={photo?.image?.publicUrlTransformed} alt={photo.altText} />
             </div>
             <div className={'content'}>
               <TitleBlock
@@ -58,8 +56,10 @@ const SingleProduct = ({ id }) => {
               />
               <Price amount={price}/>
               <Link href={{
-                pathname: 'update',
-                query: id,
+                pathname: '/edit',
+                query: {
+                  id,
+                },
               }}>
                 <FontAwesomeIcon
                   size="2x"
@@ -76,4 +76,4 @@ const SingleProduct = ({ id }) => {
   );
 };
 
-export default SingleProduct;
+export default PDP;

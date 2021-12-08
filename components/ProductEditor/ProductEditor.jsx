@@ -40,13 +40,13 @@ const ProductEditor = ({ id }) => {
 
   const [
     updateProduct, {
-      data: updateData,
       loading: updateLoading,
       error: updateError,
     },
   ] = useMutation(M_UPDATE_PRODUCT);
 
-  const handleUpdate = async () => {
+  const handleUpdate = async (e) => {
+    e.preventDefault();
     updateProduct({
       variables: {
         id,
@@ -64,11 +64,7 @@ const ProductEditor = ({ id }) => {
     <div>
       <p>Update {id}</p>
       <Form
-        onSubmit={async (e) => {
-          e.preventDefault();
-          const res = await handleUpdate();
-          console.log(res);
-        }}
+        onSubmit={handleUpdate}
       >
         <DisplayError error={error || updateError} />
         <fieldset

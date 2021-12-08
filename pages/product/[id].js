@@ -1,11 +1,11 @@
 import React from 'react';
-import SingleProduct from '../../components/SingleProduct/SingleProduct';
+import PDP from '../../components/SingleProduct/PDP';
 
 const ProductPage = ({ query }) => {
   const { id } = query;
   console.log(query);
   return (
-    <SingleProduct id={id}/>
+    <PDP id={id}/>
   );
 };
 

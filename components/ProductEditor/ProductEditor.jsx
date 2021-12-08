@@ -7,9 +7,6 @@ import DisplayError from '../ErrorMessage';
 import Form from '../styles/Form';
 
 const ProductEditor = ({ id }) => {
-  // Get existing
-
-  // get mutation
   const {
     data,
     error,
@@ -36,6 +33,7 @@ const ProductEditor = ({ id }) => {
     image: '',
     description: '',
   };
+
   const {
     formValues,
     handleChange,
@@ -47,10 +45,12 @@ const ProductEditor = ({ id }) => {
 
   const handleUpdate = async (e) => {
     e.preventDefault();
+    const { ...rest } = formValues;
+    // Keep image as is...
     updateProduct({
       variables: {
         id,
-        ...formValues,
+        ...rest,
       },
     }).then((response) => {
       console.log(response);
@@ -59,10 +59,8 @@ const ProductEditor = ({ id }) => {
         console.error(updateError);
       });
   };
-
   return (
     <div>
-      <p>Update {id}</p>
       <Form
         onSubmit={handleUpdate}
       >
@@ -71,6 +69,7 @@ const ProductEditor = ({ id }) => {
           aria-busy={updateLoading || loading}
           disabled={updateLoading || loading}
         >
+
           <label htmlFor="name">
                     Name
             <input

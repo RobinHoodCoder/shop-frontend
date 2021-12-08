@@ -36,7 +36,7 @@ export const M_UPDATE_PRODUCT = gql`
     $name: String!
     $description: String!
     $price: Int!
-    $image: Upload
+#    $image: Upload
   ) {
     updateProduct(
       id: $id
@@ -45,12 +45,12 @@ export const M_UPDATE_PRODUCT = gql`
         description: $description
         price: $price
         status: "AVAILABLE"
-        photo: {
-          create: {
-            image: $image,
-            altText: $name
-          }
-        }
+#        photo: {
+#          create: {
+#            image: $image,
+#            altText: $name
+#          }
+#        }
       }
     ) {
       id

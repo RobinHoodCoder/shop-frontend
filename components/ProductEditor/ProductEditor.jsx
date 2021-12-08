@@ -21,6 +21,14 @@ const ProductEditor = ({ id }) => {
     }
   );
 
+  const [
+    updateProduct,
+    {
+      loading: updateLoading,
+      error: updateError,
+    },
+  ] = useMutation(M_UPDATE_PRODUCT);
+
   // handle updates in forms
   const initialState = {
     name: '',
@@ -36,14 +44,6 @@ const ProductEditor = ({ id }) => {
   } = useForm(
     data?.Product || initialState
   );
-
-
-  const [
-    updateProduct, {
-      loading: updateLoading,
-      error: updateError,
-    },
-  ] = useMutation(M_UPDATE_PRODUCT);
 
   const handleUpdate = async (e) => {
     e.preventDefault();

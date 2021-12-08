@@ -5,6 +5,7 @@ import PriceTag from '../styles/PriceTag';
 import formatMoney from '../../lib/formatMoney';
 import LinkBlock from '../styles/LinkBlock';
 import TitleBlock from '../TitleBlock/TitleBlock';
+import DeleteProduct from '../DeleteProduct/DeleteProduct';
 const ProductItem = (props) => {
   const { name, description, photo, price, id } = props;
 
@@ -30,6 +31,9 @@ const ProductItem = (props) => {
             name={name}
             description={description}
           />
+          <div className="buttonList">
+            <DeleteProduct id={id}/>
+          </div>
         </ItemStyles>
       </Link>
     </LinkBlock>

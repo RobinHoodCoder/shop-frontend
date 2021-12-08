@@ -61,3 +61,15 @@ export const M_UPDATE_PRODUCT = gql`
     }
   }
 `;
+
+export const M_DELETE_PRODUCT = gql`
+  mutation DELETE_PRODUCT (
+    $id: ID!
+  ) {
+    deleteProduct(
+      id: $id
+    ) {
+      name
+    }
+  }
+`;

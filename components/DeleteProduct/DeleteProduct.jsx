@@ -13,10 +13,25 @@ const Trash = () => {
 
 // ----------------------------------------
 
+const update = (cache, payload) => {
+  console.log({ cache, payload });
+  cache.evict(cache.identify(payload.data.deleteProduct));
+};
+
+
 const DeleteProduct = (props) => {
   const { children, id } = props;
 
-  const [deleteProduct, { data, loading }] = useMutation(M_DELETE_PRODUCT, { variables: { id } });
+  const [
+    deleteProduct,
+    { data, loading },
+  ] = useMutation(M_DELETE_PRODUCT,
+    {
+      variables: {
+        id,
+      },
+      update,
+    });
 
 
   const handleClick = async (e) => {

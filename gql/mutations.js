@@ -70,6 +70,7 @@ export const M_DELETE_PRODUCT = gql`
       id: $id
     ) {
       name
+      id
     }
   }
 `;

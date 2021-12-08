@@ -27,9 +27,10 @@ const DeleteProduct = (props) => {
   };
 
   useEffect(() => {
-    if (!!data && !loading) {
+    if (!!data?.deleteProduct && !loading) {
       const { name } = data.deleteProduct;
-      toast(`${name} has been deleted.`);
+      toast.promise(`${name} has been deleted.`)
+        .then(r => console.log(r));
     }
   }, [data, loading]);
 

@@ -6,6 +6,13 @@ import Form from '../styles/Form';
 import { Q_SINGLE_PRODUCT } from '../../gql/queries';
 import { M_UPDATE_PRODUCT } from '../../gql/mutations';
 
+const initialState = {
+  name: '',
+  price: '',
+  image: '',
+  description: '',
+};
+
 const ProductEditor = ({ id }) => {
   const {
     data,
@@ -25,14 +32,6 @@ const ProductEditor = ({ id }) => {
       error: updateError,
     },
   ] = useMutation(M_UPDATE_PRODUCT);
-
-  // handle updates in forms
-  const initialState = {
-    name: '',
-    price: '',
-    image: '',
-    description: '',
-  };
 
   const {
     formValues,

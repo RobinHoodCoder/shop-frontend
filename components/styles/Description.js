@@ -1,14 +1,10 @@
 import styled from 'styled-components';
 
 const Description = styled.p`
-  text-align: center;
-  a {
-    background: var(--red);
-    display: inline;
+  span {
     line-height: 1.2;
-    font-size: 1rem;
-    text-align: center;
-    color: white;
+    font-size: 1.3rem;
+    color: --var(black);
     padding: 0 1rem;
   }
 `;

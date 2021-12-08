@@ -29,3 +29,35 @@ export const M_CREATE_PRODUCT = gql`
         }
     }
 `;
+
+export const M_UPDATE_PRODUCT = gql`
+  mutation UPDATE_PRODUCT (
+    $id: ID!
+    $name: String!
+    $description: String!
+    $price: Int!
+    $image: Upload
+  ) {
+    updateProduct(
+      id: $id
+      data: {
+        name: $name
+        description: $description
+        price: $price
+        status: "AVAILABLE"
+        photo: {
+          create: {
+            image: $image,
+            altText: $name
+          }
+        }
+      }
+    ) {
+      id
+      price
+      description
+      name
+      id
+    }
+  }
+`;

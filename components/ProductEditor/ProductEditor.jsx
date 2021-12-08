@@ -1,10 +1,10 @@
 import React from 'react';
 import { useMutation, useQuery } from '@apollo/client';
-import { Q_SINGLE_PRODUCT } from '../../gql/queries';
-import { M_UPDATE_PRODUCT } from '../../gql/mutations';
 import { useForm } from '../../lib/useForm';
 import DisplayError from '../ErrorMessage';
 import Form from '../styles/Form';
+import { Q_SINGLE_PRODUCT } from '../../gql/queries';
+import { M_UPDATE_PRODUCT } from '../../gql/mutations';
 
 const ProductEditor = ({ id }) => {
   const {
@@ -29,7 +29,7 @@ const ProductEditor = ({ id }) => {
   // handle updates in forms
   const initialState = {
     name: '',
-    price: 999,
+    price: '',
     image: '',
     description: '',
   };

@@ -7,7 +7,9 @@ import { Q_ALL_PRODUCTS } from '../../gql/queries';
 
 
 const Products = (props) => {
-  const { data, loading, error } = useQuery(Q_ALL_PRODUCTS);
+  const { data, loading, error } = useQuery(Q_ALL_PRODUCTS, {
+
+  });
 
 
   useEffect(() => {

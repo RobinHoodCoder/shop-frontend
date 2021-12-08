@@ -1,7 +1,8 @@
 import React, { useEffect } from 'react';
 import { useMutation } from '@apollo/client';
 import { M_DELETE_PRODUCT } from '../../gql/mutations';
-import { toast, ToastContainer } from 'react-toastify';
+import { toast } from 'react-toastify';
+import Toaster from '../Toaster/Toaster';
 
 
 const Trash = () => {
@@ -22,23 +23,31 @@ const DeleteProduct = (props) => {
     e.preventDefault();
     const confirmed = confirm('Are you sure you want to delete this product?');
     if (!!confirmed) {
-      await deleteProduct();
+      await toast.promise(
+        deleteProduct(), {
+          success: 'Product deleted',
+          pending: 'Deleting',
+          error: 'Could not delete item',
+        }
+      );
     }
   };
 
   useEffect(() => {
     if (!!data?.deleteProduct && !loading) {
       const { name } = data.deleteProduct;
-      toast.promise(`${name} has been deleted.`)
-        .then(r => console.log(r));
     }
   }, [data, loading]);
 
 
   return (
     <>
-      <ToastContainer/>
-      <button onClick={handleClick}>{children}</button>
+      <Toaster/>
+      <button
+        disabled={loading}
+        onClick={handleClick}
+      >{children}
+      </button>
     </>
   );
 };

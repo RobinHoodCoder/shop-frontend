@@ -10,6 +10,16 @@ const ProductEditor = ({ id }) => {
   // Get existing
 
   // get mutation
+  const {
+    data,
+    error,
+    loading,
+  } = useQuery(
+    Q_SINGLE_PRODUCT,
+    {
+      variables: { id },
+    }
+  );
 
   // handle updates in forms
   const initialState = {
@@ -24,20 +34,9 @@ const ProductEditor = ({ id }) => {
     resetForm,
     clearForm,
   } = useForm(
-    initialState
+    data?.Product || initialState
   );
 
-
-  const {
-    data,
-    error,
-    loading,
-  } = useQuery(
-    Q_SINGLE_PRODUCT,
-    {
-      variables: { id },
-    }
-  );
 
   const [
     updateProduct, {
@@ -47,19 +46,17 @@ const ProductEditor = ({ id }) => {
     },
   ] = useMutation(M_UPDATE_PRODUCT);
 
-  const handleUpdate = () => {
+  const handleUpdate = async () => {
     updateProduct({
       variables: {
         id,
-        name: 'Swek',
-        description: 'no',
-        price: 33,
+        ...formValues,
       },
     }).then((response) => {
       console.log(response);
     })
-      .catch((error) => {
-        console.error(error);
+      .catch((updateError) => {
+        console.error(updateError);
       });
   };
 
@@ -69,13 +66,15 @@ const ProductEditor = ({ id }) => {
       <Form
         onSubmit={async (e) => {
           e.preventDefault();
-          console.log(formValues);
-          const res = await createProduct();
+          const res = await handleUpdate();
           console.log(res);
         }}
       >
-        <DisplayError error={error} />
-        <fieldset aria-busy={loading} disabled={loading}>
+        <DisplayError error={error || updateError} />
+        <fieldset
+          aria-busy={updateLoading || loading}
+          disabled={updateLoading || loading}
+        >
           <label htmlFor="name">
                     Name
             <input
@@ -130,10 +129,7 @@ const ProductEditor = ({ id }) => {
         }
 
         <button type={'submit'}>
-                + New product
-        </button>
-        <button type={'submit'}>
-                Preview
+                + Update Product
         </button>
 
         <hr />
@@ -143,9 +139,7 @@ const ProductEditor = ({ id }) => {
         <button onClick={clearForm}>
                 Clear form
         </button>
-
       </Form>
-      <button onClick={handleUpdate}>UPDATE</button>
     </div>
   );
 };

@@ -38,3 +38,11 @@ export const Q_SINGLE_PRODUCT = gql`
         }
     }
 `;
+export const Q_PAGINATION = gql`
+    query PAGINATION_QUERY
+    {
+        _allProductsMeta {
+            count
+        }
+    }
+`;

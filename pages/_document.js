@@ -30,6 +30,7 @@ export default class MyDocument extends Document {
     return (
       <Html lang="en-CA">
         <Head />
+
         <body>
           <Main />
           <NextScript />

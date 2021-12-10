@@ -4,6 +4,8 @@ import withData from '../lib/withData';
 
 import 'nprogress/nprogress.css';
 import 'react-toastify/dist/ReactToastify.css';
+import '@fortawesome/fontawesome-svg-core/styles.css';
+
 import Router from 'next/router';
 import { ApolloProvider } from '@apollo/client';
 

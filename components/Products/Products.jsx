@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import gql from 'graphql-tag';
 import { useQuery } from '@apollo/client';
 import styled from 'styled-components';
-import ProductItem from '../ProductItem/ProductItem';
+import Ankeiler from '../Ankeiler/Ankeiler';
 import { Q_ALL_PRODUCTS } from '../../gql/queries';
 
 
@@ -40,7 +40,7 @@ const Products = ({ page, perPage }) => {
               const { name, id, description, photo, price } = item;
               if (!!photo) {
                 return (
-                  <ProductItem
+                  <Ankeiler
                     id={id}
                     price={price}
                     name={name}

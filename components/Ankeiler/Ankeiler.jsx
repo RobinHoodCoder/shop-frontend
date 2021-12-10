@@ -6,7 +6,7 @@ import LinkBlock from '../styles/LinkBlock';
 import TitleBlock from '../TitleBlock/TitleBlock';
 import DeleteProduct from '../DeleteProduct/DeleteProduct';
 import EditProduct from '../EditProduct/EditProduct';
-const ProductItem = (props) => {
+const Ankeiler = (props) => {
   const { name, description, photo, price, id } = props;
 
   const { altText = '', image } = photo || {};
@@ -39,4 +39,4 @@ const ProductItem = (props) => {
   );
 };
 
-export default ProductItem;
+export default Ankeiler;

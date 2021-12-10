@@ -9,7 +9,6 @@ export const PaginationContext = React.createContext({
 });
 
 const PaginationProvider = ({ children, page }) => {
-  console.log({ prodivder: 'PRovider' });
   const { error, loading, data } = useQuery(Q_PAGINATION);
   const [perPage, setPerPage] = useState(itemsPerPage);
 

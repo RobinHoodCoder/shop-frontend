@@ -1,7 +1,12 @@
 import gql from 'graphql-tag';
 
-export const Q_ALL_PRODUCTS = gql`query ALL_PRODUCTS {
-    allProducts {
+export const Q_ALL_PRODUCTS = gql`
+    query ALL_PRODUCTS ( $first: Int = 1, $skip: Int = 0, ) 
+    {
+    allProducts (
+     first: $first
+     skip: $skip
+    ) {
         id
         name
         description

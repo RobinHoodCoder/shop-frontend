@@ -6,9 +6,12 @@ import ProductItem from '../ProductItem/ProductItem';
 import { Q_ALL_PRODUCTS } from '../../gql/queries';
 
 
-const Products = (props) => {
+const Products = ({ page, perPage }) => {
   const { data, loading, error } = useQuery(Q_ALL_PRODUCTS, {
-
+    variables: {
+      first: perPage,
+      skip: page,
+    },
   });
 
 

@@ -1,11 +1,11 @@
 import React from 'react';
 import ItemStyles from '../styles/ItemStyles';
-import Link from 'next/link';
 import PriceTag from '../styles/PriceTag';
 import formatMoney from '../../lib/formatMoney';
 import LinkBlock from '../styles/LinkBlock';
 import TitleBlock from '../TitleBlock/TitleBlock';
 import DeleteProduct from '../DeleteProduct/DeleteProduct';
+import EditProduct from '../EditProduct/EditProduct';
 const ProductItem = (props) => {
   const { name, description, photo, price, id } = props;
 
@@ -13,30 +13,29 @@ const ProductItem = (props) => {
   const imageSrc = image?.publicUrlTransformed || '';
 
   return (
-    <LinkBlock>
-      <Link
+    <ItemStyles>
+      <LinkBlock
         href={`/product/${id}`}
       >
-        <ItemStyles>
-          <img
-            alt={altText}
-            src={imageSrc}
-          />
-          {price && (
-            <PriceTag>
-              {formatMoney(price)}
-            </PriceTag>
-          )}
-          <TitleBlock
-            name={name}
-            description={description}
-          />
-          <div className="buttonList">
-            <DeleteProduct id={id}/>
-          </div>
-        </ItemStyles>
-      </Link>
-    </LinkBlock>
+        <img
+          alt={altText}
+          src={imageSrc}
+        />
+        {price && (
+          <PriceTag>
+            {formatMoney(price)}
+          </PriceTag>
+        )}
+        <TitleBlock
+          name={name}
+          description={description}
+        />
+      </LinkBlock>
+      <div className="buttonList">
+        <DeleteProduct id={id}/>
+        <EditProduct id={id}/>
+      </div>
+    </ItemStyles>
   );
 };
 

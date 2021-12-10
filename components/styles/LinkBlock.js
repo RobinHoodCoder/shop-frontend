@@ -1,6 +1,8 @@
 import styled from 'styled-components';
+import Link from 'next/link';
+import PropTypes from 'prop-types';
 
-const LinkBlock = styled.a`
+const LinkBlockStyles = styled.div`
   font-family: inherit;
   font-size: inherit;
   cursor: pointer;
@@ -16,4 +18,22 @@ const LinkBlock = styled.a`
   }
 `;
 
+const LinkBlock = ({ children, href }) => {
+  console.log(href);
+  console.log(href);
+  return (
+    <LinkBlockStyles>
+      <Link href={href}>
+        <div>
+          {children}
+        </div>
+      </Link>
+    </LinkBlockStyles>
+  );
+};
+
 export default LinkBlock;
+LinkBlock.propTypes = {
+  children: PropTypes.node.isRequired,
+  href: PropTypes.string.isRequired,
+};

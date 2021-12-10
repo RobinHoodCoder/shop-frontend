@@ -13,7 +13,7 @@ const Products = ({ page, perPage }) => {
       skip: page,
     },
   });
-
+  const hasData = !!data?.products?.length;
 
   useEffect(() => {
     return () => {
@@ -28,11 +28,14 @@ const Products = ({ page, perPage }) => {
     grid-gap: 60px;
   `;
 
+  if (!!loading) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <ProductLists>
       {
-        data && (
+        !!hasData ? (
           data.allProducts?.length && (
             data.allProducts.map((item, i) => {
               const { name, id, description, photo, price } = item;
@@ -50,6 +53,8 @@ const Products = ({ page, perPage }) => {
               }
             })
           )
+        ) : (
+          <p>No products found</p>
         )
       }
     </ProductLists>

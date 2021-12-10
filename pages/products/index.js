@@ -1,7 +1,7 @@
 import React from 'react';
 import ProductItems from '../../components/Products/Products';
 import Pagination from '../../components/Pagination/Pagination';
-import { perPage } from '../../config';
+import PaginationProvider from '../../context/PaginationProvider';
 
 const Index = ({ query }) => {
   const { page: pageString = 1 } = query;
@@ -9,9 +9,11 @@ const Index = ({ query }) => {
 
   return (
     <div>
-      <Pagination page={page} perPage={perPage} />
-      <ProductItems page={page} perPage={perPage}/>
-      <Pagination page={page} perPage={perPage}/>
+      <PaginationProvider page={page}>
+        <Pagination/>
+        <ProductItems/>
+        <Pagination/>
+      </PaginationProvider>
     </div>
   );
 };

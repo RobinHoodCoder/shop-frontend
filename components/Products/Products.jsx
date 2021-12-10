@@ -1,12 +1,15 @@
-import React, { useEffect } from 'react';
-import gql from 'graphql-tag';
+import React, { useContext, useEffect } from 'react';
 import { useQuery } from '@apollo/client';
 import styled from 'styled-components';
 import Ankeiler from '../Ankeiler/Ankeiler';
 import { Q_ALL_PRODUCTS } from '../../gql/queries';
+import { PaginationContext } from '../../context/PaginationProvider';
 
 
-const Products = ({ page, perPage }) => {
+const Products = () => {
+  const paginationCtx = useContext(PaginationContext);
+  const { perPage, page } = paginationCtx;
+
   const { data, loading, error } = useQuery(Q_ALL_PRODUCTS, {
     variables: {
       first: perPage,

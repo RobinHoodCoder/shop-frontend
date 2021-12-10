@@ -1,16 +1,14 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import Head from 'next/head';
 import PaginationStyles from '../styles/PaginationStyles';
-import { useQuery } from '@apollo/client';
-import { Q_PAGINATION } from '../../gql/queries';
 import DisplayError from '../ErrorMessage';
 import Link from 'next/link';
+import { PaginationContext } from '../../context/PaginationProvider';
 
 
-const Pagination = ({ page: pageString, perPage }) => {
-  const page = Number(pageString);
-
-  const { error, loading, data } = useQuery(Q_PAGINATION);
+const Pagination = () => {
+  const paginationCtx = useContext(PaginationContext);
+  const { page, pages, loading, error } = paginationCtx;
 
   if (!!loading) {
     return (
@@ -22,10 +20,6 @@ const Pagination = ({ page: pageString, perPage }) => {
       <DisplayError error={error}/>
     );
   }
-
-  const { _allProductsMeta: meta } = data;
-  const { count } = meta;
-  const pages = (Math.ceil(count / perPage));
 
   return (
     <PaginationStyles>

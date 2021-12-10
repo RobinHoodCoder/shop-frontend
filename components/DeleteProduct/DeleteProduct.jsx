@@ -7,17 +7,15 @@ import Toaster from '../Toaster/Toaster';
 
 const Trash = () => {
   return (<>
-        🗑 -- Delete
+        🗑
   </>);
 };
 
 // ----------------------------------------
 
 const update = (cache, payload) => {
-  console.log({ cache, payload });
   cache.evict(cache.identify(payload.data.deleteProduct));
 };
-
 
 const DeleteProduct = (props) => {
   const { children, id } = props;

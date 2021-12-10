@@ -13,7 +13,6 @@ const Products = ({ page, perPage }) => {
       skip: page,
     },
   });
-  const hasData = !!data?.products?.length;
 
   useEffect(() => {
     return () => {
@@ -35,7 +34,7 @@ const Products = ({ page, perPage }) => {
   return (
     <ProductLists>
       {
-        !!hasData ? (
+        !!data?.allProducts ? (
           data.allProducts?.length && (
             data.allProducts.map((item, i) => {
               const { name, id, description, photo, price } = item;

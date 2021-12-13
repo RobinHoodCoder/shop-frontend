@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useMutation } from '@apollo/client';
 import { M_DELETE_PRODUCT } from '../../gql/mutations';
 import { toast } from 'react-toastify';
@@ -14,35 +14,39 @@ const Trash = () => {
 // ----------------------------------------
 
 const update = (cache, payload) => {
+  console.log(payload);
+  console.log('running the update function after delete');
   cache.evict(cache.identify(payload.data.deleteProduct));
 };
 
 const DeleteProduct = (props) => {
-  const { children, id } = props;
+  const { children, id, name } = props;
+  const [productName, setProductName] = useState();
 
-  const [
-    deleteProduct,
-    { data, loading },
-  ] = useMutation(M_DELETE_PRODUCT,
+  const [deleteProduct, { data, loading }] = useMutation(
+    M_DELETE_PRODUCT,
     {
-      variables: {
-        id,
-      },
+      variables: { id },
       update,
-    });
+    }
+  );
 
 
   const handleClick = async (e) => {
     e.preventDefault();
     const confirmed = confirm('Are you sure you want to delete this product?');
     if (!!confirmed) {
-      await toast.promise(
-        deleteProduct(), {
-          success: 'Product deleted',
-          pending: 'Deleting',
-          error: 'Could not delete item',
-        }
-      );
+      try {
+        await toast.promise(
+          deleteProduct(), {
+            success: `Deleted ${name}`,
+            pending: `Deleting ${name}`,
+            error: `Could not delete ${name} (${id})`,
+          }
+        );
+      } catch (e) {
+        console.log(e);
+      }
     }
   };
 

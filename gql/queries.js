@@ -22,6 +22,19 @@ export const Q_ALL_PRODUCTS = gql`
     }
 }
 `;
+export const Q_CURRENT_USER = gql`
+    query  {
+    authenticatedItem {
+        ...on User {
+                id
+                email
+                name
+                # Query the curruser once we have it
+            }
+        }
+    }
+`;
+
 export const Q_SINGLE_PRODUCT = gql`
     query SINGLE_PRODUCT (
        $id: ID!

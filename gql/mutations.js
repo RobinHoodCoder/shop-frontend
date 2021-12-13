@@ -74,3 +74,26 @@ export const M_DELETE_PRODUCT = gql`
     }
   }
 `;
+
+export const M_LOGIN = gql`
+    mutation LOGIN (
+        $email: String!
+        $password: String!
+    ) {
+        authenticateUserWithPassword(
+            email: $email
+            password: $password
+        ) {
+           ...on UserAuthenticationWithPasswordSuccess {
+             item {
+                 email
+                 name
+             }
+           }
+           ...on UserAuthenticationWithPasswordFailure {
+            code
+            message
+           }
+        }
+    }
+`;

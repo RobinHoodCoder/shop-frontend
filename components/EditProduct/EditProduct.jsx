@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from '../../consts/exports';
 
 const EditIcon = () => {
   return <>
@@ -7,11 +8,18 @@ const EditIcon = () => {
 };
 
 const EditProduct = (props) => {
-  const { children } = props;
+  const { children, id } = props;
 
   return (
     <div>
-      {children}
+      <Link href={{
+        pathname: '/edit',
+        query: {
+          id,
+        },
+      }}>
+        {children}
+      </Link>
     </div>
   );
 };

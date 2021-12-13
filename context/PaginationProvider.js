@@ -5,6 +5,7 @@ import { perPage, perPage as itemsPerPage } from '../config';
 import DisplayError from '../components/ErrorMessage';
 
 export const PaginationContext = React.createContext({
+  count: 0,
   pages: 0,
   page: 0,
   perPage,
@@ -17,7 +18,7 @@ const PaginationProvider = ({ children, page: pageString }) => {
   const { error, loading, data } = useQuery(Q_PAGINATION);
   const [perPage, setPerPage] = useState(itemsPerPage);
 
-  const page = Number(pageString);
+  const page = Number(pageString || 1);
 
   if (!!loading) {
     return (
@@ -37,6 +38,7 @@ const PaginationProvider = ({ children, page: pageString }) => {
   return (
     <PaginationContext.Provider
       value={{
+        count,
         page,
         pages,
         perPage,

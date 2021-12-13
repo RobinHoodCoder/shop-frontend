@@ -8,7 +8,7 @@ import { PaginationContext } from '../../context/PaginationProvider';
 
 const Pagination = () => {
   const paginationCtx = useContext(PaginationContext);
-  const { page, pages, loading, error } = paginationCtx;
+  const { page, pages, loading, error, count } = paginationCtx;
 
   if (!!loading) {
     return (
@@ -31,6 +31,7 @@ const Pagination = () => {
       </Link>
 
       <p>Page {page} of {pages}</p>
+      <p>Total: {count} Items</p>
 
       <Link href={`/products/${page + 1}`}>
         <a aria-disabled={page >= pages}>Next</a>

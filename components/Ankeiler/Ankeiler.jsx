@@ -32,8 +32,15 @@ const Ankeiler = (props) => {
         />
       </LinkBlock>
       <div className="buttonList">
-        <DeleteProduct id={id}/>
-        <EditProduct id={id}/>
+        <DeleteProduct
+          id={id}
+          name={name}
+        >
+          🗑️ Delete
+        </DeleteProduct>
+        <EditProduct id={id}>
+          🖊️ Edit
+        </EditProduct>
       </div>
     </ItemStyles>
   );

@@ -1,16 +1,23 @@
 import React, { useState } from 'react';
 import { useQuery } from '@apollo/client';
 import { Q_PAGINATION } from '../gql/queries';
-import { perPage as itemsPerPage } from '../config';
+import { perPage, perPage as itemsPerPage } from '../config';
 import DisplayError from '../components/ErrorMessage';
 
 export const PaginationContext = React.createContext({
   pages: 0,
+  page: 0,
+  perPage,
+  setPerPage: oke => console.log({ oke }, `set ${oke} per page`),
+  error: null,
+  loading: null,
 });
 
-const PaginationProvider = ({ children, page }) => {
+const PaginationProvider = ({ children, page: pageString }) => {
   const { error, loading, data } = useQuery(Q_PAGINATION);
   const [perPage, setPerPage] = useState(itemsPerPage);
+
+  const page = Number(pageString);
 
   if (!!loading) {
     return (

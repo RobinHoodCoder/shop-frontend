@@ -4,8 +4,7 @@ import Pagination from '../../components/Pagination/Pagination';
 import PaginationProvider from '../../context/PaginationProvider';
 
 const Index = ({ query }) => {
-  const { page: pageString = 1 } = query;
-  const page = Number(pageString);
+  const { page } = query;
 
   return (
     <div>

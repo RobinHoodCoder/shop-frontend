@@ -12,17 +12,10 @@ const Products = () => {
 
   const { data, loading, error } = useQuery(Q_ALL_PRODUCTS, {
     variables: {
-      first: perPage,
       skip: page,
+      first: perPage,
     },
   });
-
-  useEffect(() => {
-    return () => {
-    };
-  }, []);
-
-  console.log({ data, loading, error });
 
   const ProductLists = styled.div`
     display: grid;

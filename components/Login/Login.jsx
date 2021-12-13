@@ -29,39 +29,10 @@ const Login = (props) => {
     ],
   });
 
-  const validateSubmit = async () => {
-    const promise = new Promise((resolve, reject) => {
-
-    });
-    try {
-      const res = await login();
-      const { authenticateUserWithPassword } = res.data;
-      if (authenticateUserWithPassword.message) {
-        return new Error('Not made it');
-      }
-    } catch {
-      console.error('FALALALALAL');
-      // resetForm(e);
-    }
-  };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const custom = await validateSubmit();
-    try {
-      return custom === true;
-    } catch {
-      console.log('FALSE');
-    }
-
-    try {
-      const res = await login();
-      const { authenticateUserWithPassword } = res.data;
-
-      !authenticateUserWithPassword.item;
-    } finally {
-      // resetForm(e);
-    }
+    await login();
+    resetForm(e);
   };
 
   useEffect(() => {
@@ -90,6 +61,7 @@ const Login = (props) => {
         <label htmlFor="password">
         Password
           <input
+            placeholder="password"
             value={password}
             onChange={handleChange}
             type={'password'}

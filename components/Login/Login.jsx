@@ -7,7 +7,6 @@ import { M_LOGIN } from '../../gql/mutations';
 import { Q_CURRENT_USER } from '../../gql/queries';
 import SickButton from '../styles/SickButton';
 import DisplayError from '../ErrorMessage';
-import Error from 'next/error';
 import { toast } from 'react-toastify';
 import Toaster from '../Toaster/Toaster';
 
@@ -30,8 +29,31 @@ const Login = (props) => {
     ],
   });
 
+  const validateSubmit = async () => {
+    const promise = new Promise((resolve, reject) => {
+
+    });
+    try {
+      const res = await login();
+      const { authenticateUserWithPassword } = res.data;
+      if (authenticateUserWithPassword.message) {
+        return new Error('Not made it');
+      }
+    } catch {
+      console.error('FALALALALAL');
+      // resetForm(e);
+    }
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
+    const custom = await validateSubmit();
+    try {
+      return custom === true;
+    } catch {
+      console.log('FALSE');
+    }
+
     try {
       const res = await login();
       const { authenticateUserWithPassword } = res.data;

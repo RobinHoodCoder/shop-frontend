@@ -97,3 +97,8 @@ export const M_LOGIN = gql`
         }
     }
 `;
+export const M_LOGOUT = gql`
+    mutation LOGOUT {
+        endSession
+    }
+`;

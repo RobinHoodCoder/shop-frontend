@@ -1,22 +1,23 @@
-import React, { useEffect } from 'react';
-import Form from '../styles/Form';
+import React from 'react';
+import { useRouter } from 'next/router';
 import { useForm } from '../../lib/useForm';
 import { useMutation } from '@apollo/client';
 import { M_LOGIN } from '../../gql/mutations';
 import { Q_CURRENT_USER } from '../../gql/queries';
-import SickButton from '../styles/SickButton';
-import DisplayError from '../ErrorMessage';
 import Toaster from '../Toaster/Toaster';
-import { useRouter } from 'next/router';
+import DisplayError from '../ErrorMessage';
+import SickButton from '../styles/SickButton';
+import Form from '../styles/Form';
 
-const Login = () => {
+const SignUp = (props) => {
+  const { dummy } = props;
   const router = useRouter();
   const { formValues, clearForm, handleChange, resetForm } = useForm({
     email: '',
     password: '',
   });
 
-  const { email, password } = formValues;
+  const { email, password, name } = formValues;
 
 
   const [login, { error, loading, data }] = useMutation(M_LOGIN, {
@@ -37,16 +38,28 @@ const Login = () => {
     !!item?.email ? await router.push('/sell') : resetForm(e);
   };
 
+
   return (
     <Form aria-disabled={loading} method={'POST'} onSubmit={handleSubmit}>
-      <Toaster/>
+      <Toaster />
       <fieldset>
-        <p>Login with your account</p>
+        <p>Sign up for an account</p>
         <DisplayError
           error={data?.authenticateUserWithPassword}
         />
         <label htmlFor="email">
-        Email
+          Name
+          <input
+            value={name}
+            onChange={handleChange}
+            autoComplete={'name'}
+            placeholder={'name'}
+            type={'name'}
+            name={'name'}
+          />
+        </label>
+        <label htmlFor="email">
+          Email
           <input
             value={email}
             onChange={handleChange}
@@ -57,7 +70,7 @@ const Login = () => {
           />
         </label>
         <label htmlFor="password">
-        Password
+          Password
           <input
             placeholder="password"
             value={password}
@@ -67,11 +80,11 @@ const Login = () => {
           />
         </label>
         <SickButton disabled={loading}>
-        Login
+          Login
         </SickButton>
       </fieldset>
     </Form>
   );
 };
 
-export default Login;
+export default SignUp;

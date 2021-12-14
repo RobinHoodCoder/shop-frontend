@@ -2,15 +2,14 @@ import React from 'react';
 import { useRouter } from 'next/router';
 import { useForm } from '../../lib/useForm';
 import { useMutation } from '@apollo/client';
-import { M_LOGIN } from '../../gql/mutations';
+import { M_LOGIN, M_SIGNUP } from '../../gql/mutations';
 import { Q_CURRENT_USER } from '../../gql/queries';
 import Toaster from '../Toaster/Toaster';
 import DisplayError from '../ErrorMessage';
 import SickButton from '../styles/SickButton';
 import Form from '../styles/Form';
 
-const SignUp = (props) => {
-  const { dummy } = props;
+const SignUp = () => {
   const router = useRouter();
   const { formValues, clearForm, handleChange, resetForm } = useForm({
     email: '',
@@ -19,36 +18,50 @@ const SignUp = (props) => {
 
   const { email, password, name } = formValues;
 
-
-  const [login, { error, loading, data }] = useMutation(M_LOGIN, {
+  const [signUp, { error, loading, data }] = useMutation(M_SIGNUP, {
     variables: {
+      name,
       email,
       password,
     },
-    refetchQueries: [
-      { query: Q_CURRENT_USER },
-    ],
   });
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const loggedIn = await login();
 
-    const { item } = loggedIn?.data?.authenticateUserWithPassword;
-    !!item?.email ? await router.push('/sell') : resetForm(e);
+    try {
+      const signedUp = await signUp();
+      const { createUser } = signedUp.data;
+      !!createUser.email;
+    } catch (err) {
+      return console.error(err);
+    } finally {
+      resetForm(e);
+    }
+
+    // if (loggedIn) {
+    // const { item } = loggedIn?.data?.authenticateUserWithPassword;
+    // !!item?.email ? await router.push('/sell') : resetForm(e);
   };
 
 
   return (
-    <Form aria-disabled={loading} method={'POST'} onSubmit={handleSubmit}>
+
+    <Form
+      aria-disabled={loading}
+      method={'POST'}
+      onSubmit={handleSubmit}>
       <Toaster />
       <fieldset>
         <p>Sign up for an account</p>
+        {!loading && data?.createUser && (
+          <p>Signed up with {data.createUser.email}</p>
+        )}
         <DisplayError
-          error={data?.authenticateUserWithPassword}
+          error={error}
         />
         <label htmlFor="email">
-          Name
+        Name
           <input
             value={name}
             onChange={handleChange}
@@ -79,7 +92,8 @@ const SignUp = (props) => {
             name={'password'}
           />
         </label>
-        <SickButton disabled={loading}>
+        <SickButton
+          disabled={loading}>
           Login
         </SickButton>
       </fieldset>

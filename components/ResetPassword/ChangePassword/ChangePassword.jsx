@@ -1,41 +1,54 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useForm } from '../../../lib/useForm';
 import { useMutation } from '@apollo/client';
-import { M_REQUEST_RESET_PASSWORD, M_RESET_PASSWORD, M_resetPassword } from '../../../gql/mutations';
+import { M_RESET_PASSWORD } from '../../../gql/mutations';
 import Toaster from '../../Toaster/Toaster';
 import DisplayError from '../../ErrorMessage';
 import SickButton from '../../styles/SickButton';
 import Form from '../../styles/Form';
 
-const RequestReset = ({ token }) => {
+const ChangePassword = ({ token }) => {
   const { formValues, clearForm, handleChange, resetForm } = useForm({
     email: '',
     password: '',
   });
+  const [error, setError] = useState(null);
 
-  const { email, password, name } = formValues;
+  const { email, password } = formValues;
 
-  const [requestPassword, { error, loading, data }] = useMutation(M_REQUEST_RESET_PASSWORD, {
+
+  const [resetPassword, { error: reqError, loading, data }] = useMutation(M_RESET_PASSWORD, {
     variables: {
-      name,
+      token,
       email,
       password,
     },
   });
+  const { redeemUserPasswordResetToken } = data || {};
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     try {
-      const signedUp = await requestPassword();
-      const { createUser } = signedUp.data;
-      !!createUser.email;
+      await resetPassword();
+
+      if (redeemUserPasswordResetToken) {
+        return Promise.reject('token invalid');
+      }
     } catch (err) {
       return console.error(err);
     } finally {
       resetForm(e);
     }
   };
+
+  useEffect(() => {
+    if (reqError) {
+      setError(reqError);
+    }
+    if (redeemUserPasswordResetToken?.code) {
+      setError(redeemUserPasswordResetToken);
+    }
+  }, [redeemUserPasswordResetToken, reqError]);
 
   return (
     <Form
@@ -74,11 +87,11 @@ const RequestReset = ({ token }) => {
         <SickButton
           disabled={loading}
         >
-          Login
+        Change password
         </SickButton>
       </fieldset>
     </Form>
   );
 };
 
-export default RequestReset;
+export default ChangePassword;

@@ -98,6 +98,13 @@ export const M_LOGIN = gql`
     }
 `;
 
+export const M_LOGOUT = gql`
+  mutation LOGOUT {
+    endSession
+  }
+`;
+
+
 export const M_SIGNUP = gql`
   mutation SIGNUP_MUTATION (
     $email: String!
@@ -118,8 +125,17 @@ export const M_SIGNUP = gql`
   }
 `;
 
-export const M_LOGOUT = gql`
-    mutation LOGOUT {
-        endSession
+
+export const M_RESET_PASSWORD = gql`
+  mutation RESET_PASSWORD (
+    $email: String!
+  ) {
+    sendUserPasswordResetLink(
+      email: $email
+      password: $password
+    ) {
+      code
+      message
     }
+  }
 `;

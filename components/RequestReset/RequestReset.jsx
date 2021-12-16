@@ -2,7 +2,7 @@ import React from 'react';
 import { useRouter } from 'next/router';
 import { useForm } from '../../lib/useForm';
 import { useMutation } from '@apollo/client';
-import { M_SIGNUP } from '../../gql/mutations';
+import { M_RESET_PASSWORD, M_resetPassword } from '../../gql/mutations';
 import Toaster from '../Toaster/Toaster';
 import DisplayError from '../ErrorMessage';
 import SickButton from '../styles/SickButton';
@@ -17,7 +17,7 @@ const RequestReset = () => {
 
   const { email, password, name } = formValues;
 
-  const [signUp, { error, loading, data }] = useMutation(M_SIGNUP, {
+  const [resetPassword, { error, loading, data }] = useMutation(M_RESET_PASSWORD, {
     variables: {
       name,
       email,
@@ -29,7 +29,7 @@ const RequestReset = () => {
     e.preventDefault();
 
     try {
-      const signedUp = await signUp();
+      const signedUp = await resetPassword();
       const { createUser } = signedUp.data;
       !!createUser.email;
     } catch (err) {
@@ -37,10 +37,6 @@ const RequestReset = () => {
     } finally {
       resetForm(e);
     }
-
-    // if (loggedIn) {
-    // const { item } = loggedIn?.data?.authenticateUserWithPassword;
-    // !!item?.email ? await router.push('/sell') : resetForm(e);
   };
 
 
@@ -91,7 +87,7 @@ const RequestReset = () => {
         <SickButton
           disabled={loading}
         >
-                        Login
+        Login
         </SickButton>
       </fieldset>
     </Form>

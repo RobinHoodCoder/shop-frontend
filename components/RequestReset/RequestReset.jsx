@@ -2,14 +2,13 @@ import React from 'react';
 import { useRouter } from 'next/router';
 import { useForm } from '../../lib/useForm';
 import { useMutation } from '@apollo/client';
-import { M_LOGIN, M_SIGNUP } from '../../gql/mutations';
-import { Q_CURRENT_USER } from '../../gql/queries';
+import { M_RESET_PASSWORD, M_resetPassword } from '../../gql/mutations';
 import Toaster from '../Toaster/Toaster';
 import DisplayError from '../ErrorMessage';
 import SickButton from '../styles/SickButton';
 import Form from '../styles/Form';
 
-const SignUp = () => {
+const RequestReset = () => {
   const router = useRouter();
   const { formValues, clearForm, handleChange, resetForm } = useForm({
     email: '',
@@ -18,7 +17,7 @@ const SignUp = () => {
 
   const { email, password, name } = formValues;
 
-  const [signUp, { error, loading, data }] = useMutation(M_SIGNUP, {
+  const [resetPassword, { error, loading, data }] = useMutation(M_RESET_PASSWORD, {
     variables: {
       name,
       email,
@@ -30,7 +29,7 @@ const SignUp = () => {
     e.preventDefault();
 
     try {
-      const signedUp = await signUp();
+      const signedUp = await resetPassword();
       const { createUser } = signedUp.data;
       !!createUser.email;
     } catch (err) {
@@ -38,10 +37,6 @@ const SignUp = () => {
     } finally {
       resetForm(e);
     }
-
-    // if (loggedIn) {
-    // const { item } = loggedIn?.data?.authenticateUserWithPassword;
-    // !!item?.email ? await router.push('/sell') : resetForm(e);
   };
 
 
@@ -50,18 +45,15 @@ const SignUp = () => {
     <Form
       aria-disabled={loading}
       method={'POST'}
-      onSubmit={handleSubmit}>
+      onSubmit={handleSubmit}
+    >
       <Toaster />
       <fieldset>
-        <p>Sign up for an account</p>
-        {!loading && data?.createUser && (
-          <p>Signed up with {data.createUser.email}</p>
-        )}
         <DisplayError
           error={error}
         />
         <label htmlFor="email">
-        Name
+            Name
           <input
             value={name}
             onChange={handleChange}
@@ -72,7 +64,7 @@ const SignUp = () => {
           />
         </label>
         <label htmlFor="email">
-          Email
+                        Email
           <input
             value={email}
             onChange={handleChange}
@@ -83,7 +75,7 @@ const SignUp = () => {
           />
         </label>
         <label htmlFor="password">
-          Password
+                        Password
           <input
             placeholder="password"
             value={password}
@@ -93,12 +85,13 @@ const SignUp = () => {
           />
         </label>
         <SickButton
-          disabled={loading}>
-          Login
+          disabled={loading}
+        >
+        Login
         </SickButton>
       </fieldset>
     </Form>
   );
 };
 
-export default SignUp;
+export default RequestReset;

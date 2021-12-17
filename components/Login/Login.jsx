@@ -8,6 +8,8 @@ import SickButton from '../styles/SickButton';
 import DisplayError from '../ErrorMessage';
 import Toaster from '../Toaster/Toaster';
 import { useRouter } from 'next/router';
+import { Link } from '../../consts/exports';
+import RequestReset from '../ResetPassword/RequestReset/RequestReset';
 
 const Login = () => {
   const router = useRouter();
@@ -38,39 +40,46 @@ const Login = () => {
   };
 
   return (
-    <Form aria-disabled={loading} method={'POST'} onSubmit={handleSubmit}>
-      <Toaster/>
-      <fieldset>
-        <p>Login with your account</p>
-        <DisplayError
-          error={data?.authenticateUserWithPassword}
-        />
-        <label htmlFor="email">
-        Email
-          <input
-            value={email}
-            onChange={handleChange}
-            autoComplete={'email'}
-            placeholder={'email'}
-            type={'email'}
-            name={'email'}
+    <div>
+      <Form aria-disabled={loading} method={'POST'} onSubmit={handleSubmit}>
+        <Toaster />
+        <fieldset>
+          <p>Login with your account</p>
+          <DisplayError
+            error={data?.authenticateUserWithPassword}
           />
-        </label>
-        <label htmlFor="password">
-        Password
-          <input
-            placeholder="password"
-            value={password}
-            onChange={handleChange}
-            type={'password'}
-            name={'password'}
-          />
-        </label>
-        <SickButton disabled={loading}>
-        Login
-        </SickButton>
-      </fieldset>
-    </Form>
+          <label htmlFor="email">
+          Email
+            <input
+              value={email}
+              onChange={handleChange}
+              autoComplete={'email'}
+              placeholder={'email'}
+              type={'email'}
+              name={'email'}
+            />
+          </label>
+          <label htmlFor="password">
+          Password
+            <input
+              placeholder="password"
+              value={password}
+              onChange={handleChange}
+              type={'password'}
+              name={'password'}
+            />
+          </label>
+          <SickButton disabled={loading}>
+          Login
+          </SickButton>
+          <div>
+            <Link disabled={loading} href={'/reset-password'}>
+            Forgot Password
+            </Link>
+          </div>
+        </fieldset>
+      </Form>
+    </div>
   );
 };
 

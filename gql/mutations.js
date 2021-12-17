@@ -125,17 +125,32 @@ export const M_SIGNUP = gql`
   }
 `;
 
-
-export const M_RESET_PASSWORD = gql`
-  mutation RESET_PASSWORD (
+export const M_REQUEST_RESET_PASSWORD = gql`
+  mutation REQUEST_RESET_PASSWORD_MUTATION (
     $email: String!
   ) {
     sendUserPasswordResetLink(
       email: $email
-      password: $password
     ) {
       code
       message
     }
   }
+`;
+
+export const M_RESET_PASSWORD = gql`
+    mutation RESET_PASSWORD_MUTATION (
+        $email: String!
+        $token: String!
+        $password: String!
+    ) {
+        redeemUserPasswordResetToken(
+            email: $email
+            token: $token
+            password: $password
+        ) {
+            code
+            message
+        }
+    }
 `;

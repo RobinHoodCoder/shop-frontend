@@ -29,6 +29,24 @@ export const Q_CURRENT_USER = gql`
                 id
                 email
                 name
+                cart {
+                    id
+                    quantity
+                    product {
+                        id
+                        name
+                        description
+                        price
+                        photo {
+                            altText
+                            id
+                            image
+                            {
+                                publicUrlTransformed
+                            }
+                        }
+                    }
+                }
                 # Query the curruser once we have it
             }
         }

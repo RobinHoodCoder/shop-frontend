@@ -17,7 +17,7 @@ const CartStyles = styled.div`
   z-index: 5;
   display: grid;
   grid-template-rows: auto 1fr auto;
-  ${(props) => props.open && `transform: translateX(0);`};
+  ${props => props.open && `transform: translateX(0);`};
   header {
     border-bottom: 5px solid var(--black);
     margin-bottom: 2rem;
@@ -30,7 +30,7 @@ const CartStyles = styled.div`
     display: grid;
     grid-template-columns: auto auto;
     align-items: center;
-    font-size: 3rem;
+    font-size: 1.5rem;
     font-weight: 900;
     p {
       margin: 0;

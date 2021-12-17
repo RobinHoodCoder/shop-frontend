@@ -67,12 +67,13 @@ const ChangePassword = ({ query }) => {
 
   return (
     <Form
+      aria-loading={loading}
       name="password"
       method={'POST'}
       onSubmit={handleSubmit}
     >
       <fieldset form="password">
-        {error === null ? 'Password reset link was sent to your email' : 'Reset your password'}
+        {error === null ? 'You can now login with your new password!' : 'Reset your password'}
         <DisplayError
           error={error}
         />

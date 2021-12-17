@@ -2,6 +2,7 @@ import Link from 'next/link';
 import styled from 'styled-components';
 import Nav from '../Nav/Nav';
 import Search from '../Search/Search';
+import Cart from '../Cart/Cart';
 
 const Logo = styled.h1`
   font-size: 3rem;
@@ -50,8 +51,7 @@ export default function Header() {
       <div className="sub-bar">
         <Search/>
       </div>
-
-      {/* <Cart/>*/}
+      <Cart open={true}/>
     </HeaderStyles>
   );
 }

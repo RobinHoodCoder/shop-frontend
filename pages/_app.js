@@ -9,6 +9,7 @@ import '@fortawesome/fontawesome-svg-core/styles.css';
 import Router from 'next/router';
 import { ApolloProvider } from '@apollo/client';
 import Toaster from '../components/Toaster/Toaster';
+import { CartStateProvider } from '../context/CartState';
 
 Router.events.on('routeChangeStart', () => {
   return NProgress.start();
@@ -23,10 +24,12 @@ Router.events.on('routeChangeError', () => {
 function MyApp({ Component, pageProps, apollo }) {
   return (
     <ApolloProvider client={apollo}>
-      <Page>
-        <Component {...pageProps} />
-      </Page>
-      <Toaster/>
+      <CartStateProvider>
+        <Page>
+          <Component {...pageProps} />
+        </Page>
+        <Toaster />
+      </CartStateProvider>
     </ApolloProvider>
   );
 }

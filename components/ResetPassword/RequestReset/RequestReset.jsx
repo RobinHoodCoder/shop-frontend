@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useForm } from '../../../lib/useForm';
 import { useMutation } from '@apollo/client';
 import { M_REQUEST_RESET_PASSWORD } from '../../../gql/mutations';
@@ -6,6 +6,7 @@ import Toaster from '../../Toaster/Toaster';
 import DisplayError from '../../ErrorMessage';
 import SickButton from '../../styles/SickButton';
 import Form from '../../styles/Form';
+import { toast } from 'react-toastify';
 
 const RequestReset = () => {
   const { formValues, clearForm, handleChange, resetForm } = useForm({
@@ -14,32 +15,41 @@ const RequestReset = () => {
 
   const { email, password } = formValues;
 
-  const [requestPassword, { error, loading, data }] = useMutation(M_REQUEST_RESET_PASSWORD, {
-    variables: {
-      email,
-    },
-  });
+  const [requestPassword, { error, loading, data }] = useMutation(M_REQUEST_RESET_PASSWORD,
+    {
+      variables: {
+        email,
+      },
+    });
+  const { sendUserPasswordResetLink } = data || {};
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
-      await requestPassword().then(console.log);
+      const request = await requestPassword();
+      await request;
     } catch (err) {
       return console.error(err);
     } finally {
-      resetForm(e);
+      setTimeout(() => {
+        resetForm(e);
+      }, 1000);
     }
   };
+
+  useEffect(() => {
+    if (sendUserPasswordResetLink === null) {
+      toast('Password reset sent! Please check your email.');
+    }
+  }, [sendUserPasswordResetLink]);
 
   return (
     <Form
       name="password"
-      aria-disabled={false}
       method={'POST'}
       onSubmit={handleSubmit}
     >
-      <Toaster />
       <fieldset form="password">
         Reset your password
         <DisplayError
@@ -57,7 +67,6 @@ const RequestReset = () => {
           />
         </label>
         <SickButton
-          disabled={false}
         >
         Send reset email
         </SickButton>

@@ -51,7 +51,6 @@ const SignUp = () => {
       aria-disabled={loading}
       method={'POST'}
       onSubmit={handleSubmit}>
-      <Toaster />
       <fieldset>
         <p>Sign up for an account</p>
         {!loading && data?.createUser && (

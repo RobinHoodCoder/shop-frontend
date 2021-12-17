@@ -2,17 +2,24 @@ import React, { useEffect, useState } from 'react';
 import { useForm } from '../../../lib/useForm';
 import { useMutation } from '@apollo/client';
 import { M_RESET_PASSWORD } from '../../../gql/mutations';
-import Toaster from '../../Toaster/Toaster';
 import DisplayError from '../../ErrorMessage';
 import SickButton from '../../styles/SickButton';
 import Form from '../../styles/Form';
+import { toast } from 'react-toastify';
+import { Link } from '../../../consts/exports';
+import { useRouter } from 'next/router';
 
-const ChangePassword = ({ token }) => {
-  const { formValues, clearForm, handleChange, resetForm } = useForm({
-    email: '',
+const ChangePassword = ({ query }) => {
+  const { token, email: qEmail } = query;
+  const router = useRouter();
+
+  console.log({ qEmail });
+  const { formValues, handleChange, resetForm } = useForm({
+    email: qEmail,
     password: '',
+    token,
   });
-  const [error, setError] = useState(null);
+  const [error, setError] = useState(undefined);
 
   const { email, password } = formValues;
 
@@ -29,37 +36,43 @@ const ChangePassword = ({ token }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await resetPassword();
-
-      if (redeemUserPasswordResetToken) {
-        return Promise.reject('token invalid');
-      }
+      return await resetPassword();
     } catch (err) {
       return console.error(err);
     } finally {
-      resetForm(e);
+      setTimeout(() => {
+        resetForm(e);
+      }, 1000);
     }
   };
 
   useEffect(() => {
+    console.log(error);
     if (reqError) {
       setError(reqError);
     }
-    if (redeemUserPasswordResetToken?.code) {
-      setError(redeemUserPasswordResetToken);
+    if (!!redeemUserPasswordResetToken?.code) {
+      const err = redeemUserPasswordResetToken?.code?.data?.redeemUserPasswordResetToken || redeemUserPasswordResetToken;
+      setError(err);
     }
-  }, [redeemUserPasswordResetToken, reqError]);
+    if (redeemUserPasswordResetToken === null) {
+      setError(null);
+      toast('Changed password!');
+    }
+  }, [data, error, loading, redeemUserPasswordResetToken, reqError]);
+
+  const resetToken = () => {
+    return router.replace(router.pathname);
+  };
 
   return (
     <Form
       name="password"
-      aria-disabled={loading}
       method={'POST'}
       onSubmit={handleSubmit}
     >
-      <Toaster />
       <fieldset form="password">
-        Reset your password
+        {error === null ? 'Password reset link was sent to your email' : 'Reset your password'}
         <DisplayError
           error={error}
         />
@@ -84,11 +97,10 @@ const ChangePassword = ({ token }) => {
             name={'password'}
           />
         </label>
-        <SickButton
-          disabled={loading}
-        >
+        <SickButton>
         Change password
         </SickButton>
+        &nbsp;<span onClick={resetToken}>Try another email</span>
       </fieldset>
     </Form>
   );

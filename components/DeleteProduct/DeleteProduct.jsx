@@ -59,7 +59,6 @@ const DeleteProduct = (props) => {
 
   return (
     <>
-      <Toaster/>
       <button
         disabled={loading}
         onClick={handleClick}

@@ -11,30 +11,32 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCoffee, faEdit } from '@fortawesome/free-solid-svg-icons';
 import { AddToCartButton } from '../AddToCartButton/AddToCartButton';
 
+const ProductStyles = styled.main`
+  display: grid;
+  grid-auto-columns: 1fr;
+  grid-auto-flow: column;
+  min-height: 200px;
+  align-items: center;
+  gap: 2rem;
+
+  .content {
+    padding: 0 1.5rem;
+  }
+
+  img {
+    display: block;
+    position: relative;
+    width: 100%;
+    object-fit: contain;
+    max-height: 50vh;
+  }
+`;
+
 const PDP = ({ id }) => {
   const { data = {}, loading, error } = useQuery(Q_SINGLE_PRODUCT, { variables: { id } });
   const { Product = {} }  = data;
 
   const { name, description, price, photo } = Product;
-
-  const ProductStyles = styled.main`
-    display: grid;
-    grid-auto-columns: 1fr;
-    grid-auto-flow: column;
-    min-height: 200px;
-    align-items: center;
-    gap: 2rem;
-    .content {
-      padding:  0 1.5rem;
-    }
-    img {
-      display: block;
-      position: relative;
-      width: 100%;
-      object-fit: contain;
-      max-height: 50vh;
-    }
-  `;
 
 
   return (

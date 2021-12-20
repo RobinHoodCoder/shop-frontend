@@ -74,6 +74,34 @@ export const Q_SINGLE_PRODUCT = gql`
         }
     }
 `;
+
+export const Q_SEARCH_PRODUCTS = gql`
+    query SEARCH_PRODUCTS (
+        $searchTerm: String!
+    )
+    {
+        searchResult: allProducts(
+            where: {OR: [
+                {name_contains: $searchTerm},
+                {description_contains: $searchTerm}
+            ]}
+        ) {
+            id
+            name
+            description
+            price
+            photo {
+                altText
+                id
+                image
+                {
+                    publicUrlTransformed
+                }
+            }
+        }
+    }
+`;
+
 export const Q_PAGINATION = gql`
     query PAGINATION_QUERY
     {

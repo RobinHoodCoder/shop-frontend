@@ -3,15 +3,14 @@ import styled from 'styled-components';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
 
 const CartCount = ({ count }) => {
-  const DotStyles = styled.div`
+  const Dot = styled.div`
     background: var(--red);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: #fff;
+    color: white;
     border-radius: 50%;
-    height: 35px;
-    width:35px;
+    padding: 0.5rem;
+    line-height: 2rem;
+    min-width: 3rem;
+    margin-left: 1rem;
     font-feature-settings: 'tnum';
     font-variant-numeric: tabular-nums;
   `;
@@ -54,17 +53,12 @@ const CartCount = ({ count }) => {
       <TransitionGroup>
         <CSSTransition
           unmountOnExit
-          classNames="count"
           className="count"
+          classNames="count"
           key={count}
-          timeout={{ enter: 3000, exit: 3000 }}
+          timeout={{ enter: 400, exit: 400 }}
         >
-
-          <DotStyles>
-            {count}
-          </DotStyles>
-
-
+          <Dot>{count}</Dot>
         </CSSTransition>
       </TransitionGroup>
     </AnimationStyles>

@@ -2,20 +2,19 @@ import React from 'react';
 import styled from 'styled-components';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
 
-const CartCount = ({ count }) => {
-  const Dot = styled.div`
-    background: var(--red);
-    color: white;
-    border-radius: 50%;
-    padding: 0.5rem;
-    line-height: 2rem;
-    min-width: 3rem;
-    margin-left: 1rem;
-    font-feature-settings: 'tnum';
-    font-variant-numeric: tabular-nums;
-  `;
+const Dot = styled.div`
+  background: var(--red);
+  color: white;
+  border-radius: 50%;
+  padding: 0.5rem;
+  line-height: 2rem;
+  min-width: 3rem;
+  margin-left: 1rem;
+  font-feature-settings: 'tnum';
+  font-variant-numeric: tabular-nums;
+`;
 
-  const AnimationStyles = styled.div`
+const AnimationStyles = styled.div`
     position: relative;
 
     .count {
@@ -48,6 +47,7 @@ const CartCount = ({ count }) => {
     
   `;
 
+const CartCount = ({ count }) => {
   return (
     <AnimationStyles>
       <TransitionGroup>

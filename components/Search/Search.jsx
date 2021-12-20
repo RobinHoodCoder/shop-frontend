@@ -1,13 +1,23 @@
 import React from 'react';
+import { DropDown, DropDownItem, SearchStyles } from '../styles/DropDown';
 
 const Search = (props) => {
   const { dummy } = props;
 
   return (
-    <div>
-      Search
-      <input/>
-    </div>
+    <SearchStyles>
+      <div>
+        <input type="search"/>
+      </div>
+      <DropDown>
+        <DropDownItem>
+         Skrrt
+        </DropDownItem>
+        <DropDownItem>
+          Papapap
+        </DropDownItem>
+      </DropDown>
+    </SearchStyles>
   );
 };
 

@@ -21,15 +21,22 @@ const CartStyles = styled.div`
     border-bottom: 5px solid var(--black);
     margin-bottom: 2rem;
     padding-bottom: 2rem;
-  }
-  button {
-    width: 30px;
-    height: 30px;
-    align-self: flex-start;
-    justify-self: flex-end;
+    justify-content: space-between;
+    display: flex;
+
+    button {
+      width: 50px;
+      height: 50px;
+      justify-self: flex-end;
+      background:white;
+      color: var(--black);
+      border : 5px solid var(--black);
+      font-size: 1.5rem;
+      cursor: pointer;
+    }
   }
   footer {
-    border-top: 10px double var(--black);
+    border-top: 10px double var(black);
     margin-top: 2rem;
     padding-top: 2rem;
     display: grid;

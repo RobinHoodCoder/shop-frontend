@@ -1,8 +1,8 @@
 import { useMutation } from '@apollo/client';
-import { M_ADD_TO_CART } from '../../gql/mutations';
-import { Q_CURRENT_USER } from '../../gql/queries';
+import { M_ADD_TO_CART } from '../../../gql/mutations';
+import { Q_CURRENT_USER } from '../../../gql/queries';
 import { useContext } from 'react';
-import { useCart } from '../../context/CartState';
+import { useCart } from '../../../context/CartState';
 
 export const AddToCartButton = ({ id }) => {
   const { openCart } = useCart();

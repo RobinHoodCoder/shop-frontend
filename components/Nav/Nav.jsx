@@ -2,7 +2,7 @@ import Link from 'next/link';
 import NavStyles from '../styles/NavStyles';
 import { useUser } from '../../hooks';
 import { useCart } from '../../context/CartState';
-import CartCount from '../CartCount/CartCount';
+import CartCount from '../Cart/CartCount/CartCount';
 
 export default function Nav() {
   const [userData] = useUser();

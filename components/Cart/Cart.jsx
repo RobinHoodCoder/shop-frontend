@@ -29,10 +29,11 @@ const Cart = ({ open }) => {
         {
           cart?.map?.((item) => {
             console.log({ item });
-            const { product, quantity } = item;
+            const { product, quantity, id } = item;
             return (
               <CartItem
-                key={product.id}
+                key={id}
+                id={id}
                 product={product}
                 quantity={quantity}
               />

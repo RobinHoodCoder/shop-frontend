@@ -162,3 +162,11 @@ export const M_ADD_TO_CART = gql`
         }
     }
 `;
+
+export const M_REMOVE_FROM_CART = gql`
+    mutation REMOVE_FROM_CART_MUTATION($id: ID!) {
+        deleteCartItem(id: $id) {
+            id
+        }
+    }
+`;

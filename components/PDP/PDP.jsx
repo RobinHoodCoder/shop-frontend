@@ -9,7 +9,8 @@ import TitleBlock from '../TitleBlock/TitleBlock';
 import Link from 'next/link';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCoffee, faEdit } from '@fortawesome/free-solid-svg-icons';
-import { AddToCartButton } from '../AddToCartButton/AddToCartButton';
+import { AddToCartButton } from '../CartButtons/AddToCartButton/AddToCartButton';
+import { RemoveFromCartButton } from '../CartButtons/RemoveFromCartButton/RemoveFromCartButton';
 
 const ProductStyles = styled.main`
   display: grid;

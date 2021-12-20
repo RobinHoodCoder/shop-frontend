@@ -1,8 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
 import formatMoney from '../../../lib/formatMoney';
+import { RemoveFromCartButton } from '../../CartButtons/RemoveFromCartButton/RemoveFromCartButton';
 
-const CartItem = ({ product, quantity }) => {
+const CartItem = ({ product, quantity, id }) => {
   const { name, price, photo = {} } = product;
   const { altText, image } = photo;
 
@@ -25,7 +26,7 @@ const CartItem = ({ product, quantity }) => {
       <div>
         <h2>{name}</h2>
         <input onChange={console.log} type="number" value={quantity} />
-        {quantity > 0 && (`${quantity}`)}  &times;
+        {quantity > 0 && (`${quantity}`)}  &times; <RemoveFromCartButton id={id} />
       </div>
       {formatMoney(price)}
     </ItemStyles>

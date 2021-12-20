@@ -1,12 +1,12 @@
 import React from 'react';
-import ItemStyles from '../styles/ItemStyles';
-import PriceTag from '../styles/PriceTag';
-import formatMoney from '../../lib/formatMoney';
-import LinkBlock from '../styles/LinkBlock';
-import TitleBlock from '../TitleBlock/TitleBlock';
-import DeleteProduct from '../DeleteProduct/DeleteProduct';
-import EditProduct from '../EditProduct/EditProduct';
-import { AddToCartButton } from '../AddToCartButton/AddToCartButton';
+import ItemStyles from '../../styles/ItemStyles';
+import PriceTag from '../../styles/PriceTag';
+import formatMoney from '../../../lib/formatMoney';
+import LinkBlock from '../../styles/LinkBlock';
+import TitleBlock from '../../TitleBlock/TitleBlock';
+import DeleteProduct from '../../DeleteProduct/DeleteProduct';
+import EditProduct from '../../EditProduct/EditProduct';
+import { AddToCartButton } from '../../CartButtons/AddToCartButton/AddToCartButton';
 const Ankeiler = (props) => {
   const { name, description, photo, price, id } = props;
 

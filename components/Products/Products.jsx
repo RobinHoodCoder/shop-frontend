@@ -1,7 +1,7 @@
 import React, { useContext, useEffect } from 'react';
 import { useQuery } from '@apollo/client';
 import styled from 'styled-components';
-import Ankeiler from '../Ankeiler/Ankeiler';
+import Ankeiler from './Ankeiler/Ankeiler';
 import { Q_ALL_PRODUCTS } from '../../gql/queries';
 import { PaginationContext } from '../../context/PaginationProvider';
 

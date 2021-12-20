@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { TransitionGroup, CSSTransition } from 'react-transition-group';
 
 const CartCount = ({ count }) => {
   const DotStyles = styled.div`
@@ -15,10 +16,58 @@ const CartCount = ({ count }) => {
     font-variant-numeric: tabular-nums;
   `;
 
+  const AnimationStyles = styled.div`
+    position: relative;
+
+    .count {
+      display: block;
+      position: relative;
+      transition: transform 0.4s;
+      backface-visibility: hidden;
+    }
+
+    .count-enter {
+      transform: scale(4) rotateX(0.5turn);
+    }
+    .count-enter-exit {
+      background: lightblue;
+    }
+
+    .count-enter-active {
+      transform: rotateX(0);
+    }
+
+    .count-exit {
+      top: 0;
+      position: absolute;
+      transform: rotateX(0);
+    }
+
+    .count-exit-active {
+      transform: scale(4) rotateX(0.5turn);
+    }
+    
+  `;
+
   return (
-    <DotStyles>
-      {count}
-    </DotStyles>
+    <AnimationStyles>
+      <TransitionGroup>
+        <CSSTransition
+          unmountOnExit
+          classNames="count"
+          className="count"
+          key={count}
+          timeout={{ enter: 3000, exit: 3000 }}
+        >
+
+          <DotStyles>
+            {count}
+          </DotStyles>
+
+
+        </CSSTransition>
+      </TransitionGroup>
+    </AnimationStyles>
   );
 };
 

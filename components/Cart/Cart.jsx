@@ -7,21 +7,22 @@ import { formattedTotalPrice } from '../../lib/calcTotalPrice';
 import { useCart } from '../../context/CartState';
 
 const Cart = ({ open }) => {
-  const { user, error, loading } = useUser();
-  const { showCart, toggleCart } = useCart();
+  const [userData, { error, loading }]  = useUser();
+  const { showCart, toggleCart, ...rest } = useCart();
+  console.log(showCart, rest);
 
-  const { cart = [] } = user || {};
+  const { cart = [] } = userData || {};
 
   const total = formattedTotalPrice(cart);
 
   // const [cartItems, { loading, data, error }] = useQuery(Q_CART_ITEMS);
-  if (!user) {
+  if (!userData) {
     return null;
   }
   return (
     <CartStyles open={showCart}>
       <header>
-        <Supreme>{user?.name}'s card</Supreme>
+        <Supreme>{userData?.name}'s card</Supreme>
       </header>
       <button onClick={toggleCart}>&times;</button>
       <ul>

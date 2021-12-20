@@ -6,6 +6,7 @@ import LinkBlock from '../styles/LinkBlock';
 import TitleBlock from '../TitleBlock/TitleBlock';
 import DeleteProduct from '../DeleteProduct/DeleteProduct';
 import EditProduct from '../EditProduct/EditProduct';
+import { AddToCartButton } from '../AddToCartButton/AddToCartButton';
 const Ankeiler = (props) => {
   const { name, description, photo, price, id } = props;
 
@@ -36,11 +37,12 @@ const Ankeiler = (props) => {
           id={id}
           name={name}
         >
-          🗑️ Delete
+          🗑️
         </DeleteProduct>
         <EditProduct id={id}>
-          🖊️ Edit
+          🖊️
         </EditProduct>
+        <AddToCartButton id={id}/>
       </div>
     </ItemStyles>
   );

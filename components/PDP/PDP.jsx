@@ -9,6 +9,7 @@ import TitleBlock from '../TitleBlock/TitleBlock';
 import Link from 'next/link';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCoffee, faEdit } from '@fortawesome/free-solid-svg-icons';
+import { AddToCartButton } from '../AddToCartButton/AddToCartButton';
 
 const PDP = ({ id }) => {
   const { data = {}, loading, error } = useQuery(Q_SINGLE_PRODUCT, { variables: { id } });
@@ -66,6 +67,7 @@ const PDP = ({ id }) => {
                   icon={faEdit}
                 />
               </Link>
+              <AddToCartButton id={id}/>
             </div>
           </ProductStyles>
         )

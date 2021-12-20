@@ -154,3 +154,11 @@ export const M_RESET_PASSWORD = gql`
         }
     }
 `;
+
+export const M_ADD_TO_CART = gql`
+    mutation ADD_TO_CART_MUTATION($id: ID!) {
+        addToCart(productId: $id) {
+            id
+        }
+    }
+`;

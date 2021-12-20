@@ -5,6 +5,7 @@ const defaultCtx = () => console.log('CartState: defaultCtx');
 const LocalStateContext = React.createContext({
   cart: [],
   addToCart: () => defaultCtx('add'),
+  openCart: () => defaultCtx('open cart'),
   removeFromCart: () => defaultCtx('remove'),
   clearCart: () => defaultCtx('clear'),
 });

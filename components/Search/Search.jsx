@@ -1,13 +1,32 @@
 import React from 'react';
 import { DropDown, DropDownItem, SearchStyles } from '../styles/DropDown';
+import { resetIdCounter, useCombobox } from 'downshift';
 
 const Search = (props) => {
-  const { dummy } = props;
+  resetIdCounter();
+  const { getComboboxProps, getInputProps, getMenuProps  } = useCombobox({
+    items: [],
+    onInputValueChange() {
+      console.log('oke');
+    },
+    onSelectedItemChange() {
 
+    },
+    onHighlightedIndexChange() {
+
+    },
+    getMenuProps() {
+
+    },
+
+  });
   return (
     <SearchStyles>
-      <div>
-        <input type="search"/>
+      <div {...getComboboxProps()}>
+        <input type="search" {...getInputProps({
+          placeholder: 'Search products...',
+          className: 'loading',
+        })} />
       </div>
       <DropDown>
         <DropDownItem>

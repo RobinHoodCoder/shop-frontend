@@ -24,19 +24,18 @@ const Cart = ({ open }) => {
       <button onClick={toggleCart}>&times;</button>
       <ul>
         {
-          !!cart?.length > 0 && (
-            cart.map((item) => {
-              console.log({ item });
-              const { product, quantity } = item;
-              return (
-                <CartItem
-                  key={product.id}
-                  product={product}
-                  quantity={quantity}
-                />
-              );
-            })
-          )
+          cart?.map?.((item) => {
+            console.log({ item });
+            const { product, quantity } = item;
+            return (
+              <CartItem
+                key={product.id}
+                product={product}
+                quantity={quantity}
+              />
+            );
+          })
+
         }
       </ul>
       <footer>

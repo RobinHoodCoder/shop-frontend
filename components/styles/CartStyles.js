@@ -2,7 +2,6 @@ import styled from 'styled-components';
 
 const CartStyles = styled.div`
   padding: 20px;
-  position: relative;
   background: white;
   position: fixed;
   height: 100%;
@@ -22,6 +21,12 @@ const CartStyles = styled.div`
     border-bottom: 5px solid var(--black);
     margin-bottom: 2rem;
     padding-bottom: 2rem;
+  }
+  button {
+    width: 30px;
+    height: 30px;
+    align-self: flex-start;
+    justify-self: flex-end;
   }
   footer {
     border-top: 10px double var(--black);

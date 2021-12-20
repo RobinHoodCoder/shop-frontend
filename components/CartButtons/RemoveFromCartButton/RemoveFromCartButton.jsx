@@ -17,6 +17,13 @@ export const RemoveFromCartButton = ({ id }) => {
   const [addToCart, { loading, error }] = useMutation(M_REMOVE_FROM_CART, {
     variables: { id },
     update,
+    optimisticResponse: {
+      __typename: 'Mutation',
+      deleteCartItem: {
+        __typename: 'CartItem',
+        id,
+      },
+    },
   });
   const handleAddToCart = () => {
     addToCart().then(() => openCart());

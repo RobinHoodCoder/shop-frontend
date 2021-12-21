@@ -1,6 +1,5 @@
 import Header from './Header/Header';
-import { createGlobalStyle } from 'styled-components';
-import styled from 'styled-components';
+import styled, { createGlobalStyle } from 'styled-components';
 
 // import styles from './Page.module.scss';
 const GlobalStyles = createGlobalStyle`
@@ -18,24 +17,6 @@ const GlobalStyles = createGlobalStyle`
     font-style: normal;
     font-weight: normal;
     src: url("/static/radnikanext-medium-webfont.woff2") format('woff2');
-  }
-  
-  html {
-    --red: #ff0000;
-    --black: #1c1c1c;
-    --grey: #727272;
-    --gray: #444343;
-    --lightGrey: #909090;
-    --lightGray: #909090;
-    --off-white: #d0d0d0;
-    font-size: 16px;
-    --bs: 0 9px 18px 0 rgba(0, 0, 0, 0.49);
-    box-sizing: border-box;
-    padding:0;
-    margin:0;
-    *,*:before, *:after {
-      box-sizing: inherit;
-    }
   }
   
   body {

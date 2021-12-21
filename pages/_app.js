@@ -3,6 +3,7 @@ import NProgress from 'nprogress';
 import withData from '../lib/withData';
 
 import 'nprogress/nprogress.css';
+import '../components/styles/global.css';
 import 'react-toastify/dist/ReactToastify.css';
 import '@fortawesome/fontawesome-svg-core/styles.css';
 

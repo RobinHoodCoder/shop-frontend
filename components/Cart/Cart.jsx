@@ -5,7 +5,7 @@ import Supreme from '../styles/Supreme';
 import CartItem from './CartItem/CartItem';
 import { formattedTotalPrice } from '../../lib/calcTotalPrice';
 import { useCart } from '../../context/CartState';
-import styled from 'styled-components';
+import Checkout from '../Checkout/Checkout';
 
 const Cart = ({ open }) => {
   const [userData, { error, loading }]  = useUser();
@@ -23,16 +23,15 @@ const Cart = ({ open }) => {
   return (
     <CartStyles open={showCart}>
 
-      <div>
+      <header>
         <Supreme>{userData?.name}'s card</Supreme>
         <button onClick={toggleCart}>&times;</button>
 
-      </div>
+      </header>
 
       <ul>
         {
           cart?.map?.((item) => {
-            console.log({ item });
             const { product, quantity, id } = item;
             return (
               <CartItem
@@ -48,6 +47,7 @@ const Cart = ({ open }) => {
       </ul>
       <footer>
         {total}
+        <div> <Checkout /></div>
       </footer>
     </CartStyles>
   );

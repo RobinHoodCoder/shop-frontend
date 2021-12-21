@@ -4,15 +4,15 @@
   "description": "Sick Fits! An example React, GraphQL, Next and Apollo",
   "main": "index.js",
   "scripts": {
-    "dev": "next -p 7777",
+    "dev": "next -p 1234",
     "build": "next build",
-    "start": "next start -p 7777",
+    "start": "next start -p 1234",
     "test": "NODE_ENV=test jest --watch"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@apollo/client": "^3.3.8",
+    "@apollo/client": "3.4.0",
     "@apollo/link-error": "^2.0.0-beta.3",
     "@apollo/react-ssr": "^4.0.0",
     "@fortawesome/fontawesome-svg-core": "^1.2.36",

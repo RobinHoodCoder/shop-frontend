@@ -49,7 +49,7 @@ export default function Header() {
       </div>
 
       <div className="sub-bar">
-        <Search/>
+        <Search />
       </div>
       <Cart open={true}/>
     </HeaderStyles>

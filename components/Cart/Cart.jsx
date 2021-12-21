@@ -23,11 +23,11 @@ const Cart = ({ open }) => {
   return (
     <CartStyles open={showCart}>
 
-      <header>
+      <div>
         <Supreme>{userData?.name}'s card</Supreme>
         <button onClick={toggleCart}>&times;</button>
 
-      </header>
+      </div>
 
       <ul>
         {

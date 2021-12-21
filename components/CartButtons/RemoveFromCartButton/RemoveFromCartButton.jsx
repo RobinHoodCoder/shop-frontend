@@ -12,18 +12,19 @@ const StyledButton = styled.button`
 function update(cache, payload) {
   cache.evict(cache.identify(payload.data.deleteCartItem));
 }
+
+/* --- This is not working yet...----  optimisticResponse: {
+     __typename: 'Mutation',
+     deleteCartItem: {
+       __typename: 'CartItem',
+       id,
+     },
+   },*/
 export const RemoveFromCartButton = ({ id }) => {
   const { openCart } = useCart();
   const [addToCart, { loading, error }] = useMutation(M_REMOVE_FROM_CART, {
     variables: { id },
     update,
-    /* --- This is not working yet...----  optimisticResponse: {
-      __typename: 'Mutation',
-      deleteCartItem: {
-        __typename: 'CartItem',
-        id,
-      },
-    },*/
   });
   const handleAddToCart = () => {
     addToCart().then(() => openCart());

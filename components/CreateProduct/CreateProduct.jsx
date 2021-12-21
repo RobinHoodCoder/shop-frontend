@@ -3,7 +3,7 @@ import { useForm } from '../../lib/useForm';
 import Form from '../styles/Form';
 import gql from 'graphql-tag';
 import { useMutation } from '@apollo/client';
-import DisplayError from '../ErrorMessage';
+import DisplayError from '../Errors/ErrorMessage';
 import { M_CREATE_PRODUCT } from '../../gql/mutations';
 import { Q_ALL_PRODUCTS } from '../../gql/queries';
 import slugify from 'slugify';

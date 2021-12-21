@@ -5,7 +5,7 @@ import { useMutation } from '@apollo/client';
 import { M_LOGIN } from '../../gql/mutations';
 import { Q_CURRENT_USER } from '../../gql/queries';
 import SickButton from '../styles/SickButton';
-import DisplayError from '../ErrorMessage';
+import DisplayError from '../Errors/ErrorMessage';
 import { useRouter } from 'next/router';
 import { Link } from '../../consts/exports';
 

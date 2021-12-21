@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import Head from 'next/head';
 import PaginationStyles from '../styles/PaginationStyles';
-import DisplayError from '../ErrorMessage';
+import DisplayError from '../Errors/ErrorMessage';
 import Link from 'next/link';
 import { PaginationContext } from '../../context/PaginationProvider';
 

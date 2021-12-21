@@ -5,7 +5,7 @@ import { useMutation } from '@apollo/client';
 import { M_LOGIN, M_SIGNUP } from '../../gql/mutations';
 import { Q_CURRENT_USER } from '../../gql/queries';
 import Toaster from '../Toaster/Toaster';
-import DisplayError from '../ErrorMessage';
+import DisplayError from '../Errors/ErrorMessage';
 import SickButton from '../styles/SickButton';
 import Form from '../styles/Form';
 

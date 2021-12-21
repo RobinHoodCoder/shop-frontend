@@ -6,6 +6,7 @@ import CartItem from './CartItem/CartItem';
 import { formattedTotalPrice } from '../../lib/calcTotalPrice';
 import { useCart } from '../../context/CartState';
 import Checkout from '../Checkout/Checkout';
+import CheckoutProvider from '../Checkout/CheckoutProvider';
 
 const Cart = ({ open }) => {
   const [userData, { error, loading }]  = useUser();
@@ -47,7 +48,9 @@ const Cart = ({ open }) => {
       </ul>
       <footer>
         {total}
-        <div> <Checkout /></div>
+        <CheckoutProvider>
+          <Checkout />
+        </CheckoutProvider>
       </footer>
     </CartStyles>
   );

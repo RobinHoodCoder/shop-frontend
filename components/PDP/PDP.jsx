@@ -1,7 +1,7 @@
 import React from 'react';
 import { useQuery } from '@apollo/client';
 import { Q_SINGLE_PRODUCT } from '../../gql/queries';
-import DisplayError from '../ErrorMessage';
+import DisplayError from '../Errors/ErrorMessage';
 import  Head from 'next/head';
 import styled from 'styled-components';
 import Price from '../Price/Price';

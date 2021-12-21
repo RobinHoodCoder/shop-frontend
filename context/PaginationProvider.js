@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useQuery } from '@apollo/client';
 import { Q_PAGINATION } from '../gql/queries';
 import { perPage, perPage as itemsPerPage } from '../config';
-import DisplayError from '../components/ErrorMessage';
+import DisplayError from '../components/Errors/ErrorMessage';
 
 export const PaginationContext = React.createContext({
   count: 0,

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useForm } from '../../../lib/useForm';
 import { useMutation } from '@apollo/client';
 import { M_RESET_PASSWORD } from '../../../gql/mutations';
-import DisplayError from '../../ErrorMessage';
+import DisplayError from '../../Errors/ErrorMessage';
 import SickButton from '../../styles/SickButton';
 import Form from '../../styles/Form';
 import { toast } from 'react-toastify';

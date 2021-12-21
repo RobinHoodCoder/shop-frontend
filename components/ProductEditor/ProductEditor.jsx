@@ -1,7 +1,7 @@
 import React from 'react';
 import { useMutation, useQuery } from '@apollo/client';
 import { useForm } from '../../lib/useForm';
-import DisplayError from '../ErrorMessage';
+import DisplayError from '../Errors/ErrorMessage';
 import Form from '../styles/Form';
 import { Q_SINGLE_PRODUCT } from '../../gql/queries';
 import { M_UPDATE_PRODUCT } from '../../gql/mutations';

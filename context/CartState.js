@@ -1,8 +1,8 @@
-import React, { useContext } from 'react';
+import { useContext, useState, createContext } from 'react';
 
 const defaultCtx = () => console.log('CartState: defaultCtx');
 
-const LocalStateContext = React.createContext({
+const LocalStateContext = createContext({
   cart: [],
   addToCart: () => defaultCtx('add'),
   openCart: () => defaultCtx('open cart'),
@@ -12,8 +12,8 @@ const LocalStateContext = React.createContext({
 const LocalStateProvider = LocalStateContext.Provider;
 
 const CartStateProvider = ({ children }) => {
-  const [cart, setCart] = React.useState([]);
-  const [showCart, setCartVisibility] = React.useState(true);
+  const [cart, setCart] = useState([]);
+  const [showCart, setCartVisibility] = useState(false);
 
   const addToCart = (item) => {
     setCart([...cart, item]);

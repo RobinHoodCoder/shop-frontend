@@ -6,20 +6,28 @@ import { useRouter } from 'next/dist/client/router';
 import { Q_SEARCH_PRODUCTS } from '../../gql/queries';
 import { useCallback, useEffect } from 'react';
 import { useCart } from '../../context/CartState';
+import { DropDown, DropDownItem, SearchStyles } from '../styles/DropDown';
 
 export default function Search() {
-  // const router = useRouter();
+  const router = useRouter();
+
+  resetIdCounter();
   const [findItems, { loading, data, error }] = useLazyQuery(
     Q_SEARCH_PRODUCTS,
     {
-      fetchPolicy: 'network-only',
+      fetchPolicy: 'no-cache',
     }
   );
-  const items = !loading ? (data?.searchTerms || []) : [];
+  const items = data?.searchTerms || [];
 
-  const findItemsButChill = debounce(variables => findItems({ variables }), 350);
-
-  resetIdCounter();
+  /* const findItemsButChill = debounce(async (variables) => {
+    console.log(variables, '?');
+    if (!!variables?.searchTerm) {
+      console.log(variables, 'chilout');
+      await findItems(variables);
+    }
+  }, 350);*/
+  const findItemsButChill = debounce(findItems, 350);
 
 
   const {
@@ -33,8 +41,7 @@ export default function Search() {
   } = useCombobox({
     items,
     onInputValueChange() {
-      console.log('inputValue', inputValue);
-      return findItemsButChill({
+      findItemsButChill({
         variables: {
           searchTerm: inputValue,
         },
@@ -49,14 +56,10 @@ export default function Search() {
     itemToString: item => item?.name || '',
   });
 
-  useEffect(() => {
-    findItemsButChill({ variables: { searchTerm: inputValue } });
-  }, [inputValue]);
-
 
   console.log('rerender', { data, inputValue });
   return (
-    <div>
+    <SearchStyles>
       {
         !isOpen && null
       }
@@ -70,10 +73,10 @@ export default function Search() {
           })}
         />
       </div>
-      <div {...getMenuProps()}>
+      <DropDown {...getMenuProps()}>
         {isOpen && (
           items.map((item, index) => (
-            <div
+            <DropDownItem
               {...getItemProps({ item, index })}
               key={item.id}
             >
@@ -83,13 +86,13 @@ export default function Search() {
                 width="50"
               />
               {item.name}
-            </div>
+            </DropDownItem>
           ))
         )}
         {isOpen && !items.length && !loading && (
           <div>Sorry, No items found for {inputValue}</div>
         )}
-      </div>
-    </div>
+      </DropDown>
+    </SearchStyles>
   );
 }

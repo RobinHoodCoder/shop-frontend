@@ -82,8 +82,8 @@ export const Q_SEARCH_PRODUCTS = gql`
     {
         searchResult: allProducts(
             where: {OR: [
-                {name_contains: $searchTerm},
-                {description_contains: $searchTerm}
+                {name_contains_i: $searchTerm},
+                {description_contains_i: $searchTerm}
             ]}
         ) {
             id

@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { loadStripe } from '@stripe/stripe-js';
-import { NEXT_PUBLIC_STRIPE_KEY } from '../../config';
 import { CardElement, Elements, useElements, useStripe } from '@stripe/react-stripe-js';
 import SickButton from '../styles/SickButton';
 import NProgress from 'nprogress';
-import DisplayError from '../Errors/ErrorMessage';
 import { CheckoutError } from '../Errors/';
+import { useMutation } from '@apollo/client';
+import { CREATE_ORDER_MUTATION } from '../../gql/mutations';
 
 const CheckoutFormStyles = styled.form`
           padding: 0.4rem 1rem;
@@ -24,15 +23,18 @@ const Checkout = (props) => {
   const [error, setError] = useState(null);
   const stripe = useStripe();
   const elements = useElements();
+  const [createOrder, { data, loading: gqlLoading, error: gqlError }] = useMutation(CREATE_ORDER_MUTATION, {
+  });
 
 
   const handleSubmit = async (e) => {
     // 1. Stop the form from submitting and turn the loader one
     e.preventDefault();
     setLoading(true);
+    setError(null);
 
 
-    const { error, paymentMethod, getElements } = await stripe.createPaymentMethod({
+    const { error: paymentError, paymentMethod, getElements } = await stripe.createPaymentMethod({
       type: 'card',
       card: elements.getElement(CardElement),
     });
@@ -44,11 +46,18 @@ const Checkout = (props) => {
     // 3. Create payment method via Stripe. Token comes back if success.
 
     // 4. Handle errors from Stripe
-    if (!!error) {
-      setError(error);
+    if (!!paymentError) {
+      setError(paymentError);
     }
 
     // 5. Handle all errors from Stripe.
+    const order = await createOrder({
+      variables: {
+        token: paymentMethod.id,
+      },
+    });
+
+    console.log(order);
 
     // 6.Send token from Stripe to our Keystone server via custom mutation!
 
@@ -56,13 +65,19 @@ const Checkout = (props) => {
   };
 
   useEffect(() => {
+    if (!!gqlError) {
+      setError(gqlError);
+      NProgress.done();
+    }
     if (!!loading) {
       NProgress.start();
     }
     return () => {
       return NProgress.done();
     };
-  }, [loading]);
+  }, [loading, gqlError]);
+
+  console.log(data);
 
 
   return (

@@ -27,7 +27,6 @@ const Cart = ({ open }) => {
       <header>
         <Supreme>{userData?.name}'s card</Supreme>
         <button onClick={toggleCart}>&times;</button>
-
       </header>
 
       <ul>

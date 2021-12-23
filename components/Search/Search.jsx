@@ -3,40 +3,24 @@ import { resetIdCounter, useCombobox } from 'downshift';
 import gql from 'graphql-tag';
 import debounce from 'lodash.debounce';
 import { useRouter } from 'next/dist/client/router';
-
-
-const SEARCH_PRODUCTS_QUERY = gql`
-    query SEARCH_PRODUCTS_QUERY($searchTerm: String!) {
-        searchTerms: allProducts(
-            where: {
-                OR: [
-                    { name_contains_i: $searchTerm }
-                    { description_contains_i: $searchTerm }
-                ]
-            }
-        ) {
-            id
-            name
-            photo {
-                image {
-                    publicUrlTransformed
-                }
-            }
-        }
-    }
-`;
+import { Q_SEARCH_PRODUCTS } from '../../gql/queries';
+import { useCallback, useEffect } from 'react';
+import { useCart } from '../../context/CartState';
 
 export default function Search() {
   // const router = useRouter();
   const [findItems, { loading, data, error }] = useLazyQuery(
-    SEARCH_PRODUCTS_QUERY,
+    Q_SEARCH_PRODUCTS,
     {
       fetchPolicy: 'network-only',
     }
   );
   const items = !loading ? (data?.searchTerms || []) : [];
-  const findItemsButChill = debounce(findItems, 350);
+
+  const findItemsButChill = debounce(variables => findItems({ variables }), 350);
+
   resetIdCounter();
+
 
   const {
     isOpen,
@@ -49,6 +33,7 @@ export default function Search() {
   } = useCombobox({
     items,
     onInputValueChange() {
+      console.log('inputValue', inputValue);
       return findItemsButChill({
         variables: {
           searchTerm: inputValue,
@@ -63,7 +48,13 @@ export default function Search() {
     },
     itemToString: item => item?.name || '',
   });
-  console.log('rerender');
+
+  useEffect(() => {
+    findItemsButChill({ variables: { searchTerm: inputValue } });
+  }, [inputValue]);
+
+
+  console.log('rerender', { data, inputValue });
   return (
     <div>
       {

@@ -5,7 +5,10 @@ import SickButton from '../styles/SickButton';
 import NProgress from 'nprogress';
 import { CheckoutError } from '../Errors/';
 import { useMutation } from '@apollo/client';
-import { CREATE_ORDER_MUTATION } from '../../gql/mutations';
+import { CREATE_ORDER_MUTATION, M_CREATE_ORDER } from '../../gql/mutations';
+import { useRouter } from 'next/dist/client/router';
+import { useCart } from '../../context/CartState';
+import { Q_CURRENT_USER } from '../../gql/queries';
 
 const CheckoutFormStyles = styled.form`
           padding: 0.4rem 1rem;
@@ -17,15 +20,15 @@ const CheckoutFormStyles = styled.form`
   `;
 
 const Checkout = (props) => {
-  const { dummy } = props;
-
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const stripe = useStripe();
   const elements = useElements();
-  const [createOrder, { data, loading: gqlLoading, error: gqlError }] = useMutation(CREATE_ORDER_MUTATION, {
+  const { closeCart } = useCart();
+  const [createOrder, { data, loading: gqlLoading, error: gqlError }] = useMutation(M_CREATE_ORDER, {
+    refetchQueries: [{ query: Q_CURRENT_USER }],
   });
-
+  const router = useRouter();
 
   const handleSubmit = async (e) => {
     // 1. Stop the form from submitting and turn the loader one
@@ -47,19 +50,34 @@ const Checkout = (props) => {
 
     // 4. Handle errors from Stripe
     if (!!paymentError) {
-      setError(paymentError);
+      return setError(paymentError);
     }
 
     // 5. Handle all errors from Stripe.
-    const order = await createOrder({
-      variables: {
-        token: paymentMethod.id,
-      },
-    });
 
-    console.log(order);
 
-    // 6.Send token from Stripe to our Keystone server via custom mutation!
+    // 6. Change the page to view the order
+    try {
+      if (!!paymentMethod?.id) {
+        const order = await createOrder({
+          variables: {
+            token: paymentMethod?.id,
+          },
+        });
+        try {
+          console.log(order);
+          await router.push({
+            pathname: `/order/${order?.data?.checkout?.id}`,
+          });
+        } catch (err) {
+          console.log(err);
+        }
+      }
+    } catch (err) {
+      console.log(err);
+    }
+    // 7. Close the cart
+    closeCart();
 
     // 7. View the order.
   };

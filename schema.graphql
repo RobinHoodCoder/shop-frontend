@@ -88,7 +88,7 @@ type KeystoneMeta {
 }
 
 type Mutation {
-    addToCart(productId: ID!): CartItem
+    addToCart(productId: ID): CartItem
     authenticateUserWithPassword(email: String!, password: String!): UserAuthenticationWithPasswordResult!
     checkout(token: String!): Order
     " Create a single CartItem item. "
@@ -372,7 +372,7 @@ type _ListMeta {
     "The list's display name in the Admin UI"
     label: String
     "The Keystone List name"
-    name: String @deprecated(reason: "Use `key` instead")
+    name: String @deprecated(reason : "Use `key` instead")
     "The list's data path"
     path: String
     "The list's plural display name"
@@ -432,7 +432,7 @@ type _ListSchema {
 
 type _ListSchemaFields {
     "The name of the field in its list"
-    name: String @deprecated(reason: "Use `path` instead")
+    name: String @deprecated(reason : "Use `path` instead")
     "The path of the field in its list"
     path: String
     "The field type (ie, Checkbox, Text, etc)"
@@ -579,12 +579,6 @@ enum SortUsersBy {
     passwordResetRedeemedAt_ASC
     passwordResetRedeemedAt_DESC
 }
-
-"The `JSON` scalar type represents JSON values as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf)."
-scalar JSON
-
-"The `Upload` scalar type represents a file upload."
-scalar Upload
 
 input CartItemCreateInput {
     product: ProductRelateToOneInput
@@ -1204,3 +1198,10 @@ input _ksListsMetaInput {
     auxiliary: Boolean
     key: String
 }
+
+
+"The `JSON` scalar type represents JSON values as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf)."
+scalar JSON
+
+"The `Upload` scalar type represents a file upload."
+scalar Upload

@@ -1,7 +1,7 @@
 import gql from 'graphql-tag';
 
 export const Q_ALL_PRODUCTS = gql`
-    query ALL_PRODUCTS ( $first: Int = 1, $skip: Int = 0, ) 
+    query ALL_PRODUCTS ( $first: Int = 1, $skip: Int = 0, )
     {
     allProducts (
      first: $first
@@ -56,7 +56,7 @@ export const Q_CURRENT_USER = gql`
 export const Q_SINGLE_PRODUCT = gql`
     query SINGLE_PRODUCT (
        $id: ID!
-    ) 
+    )
     {
         Product(where: {id: $id}) {
             id
@@ -109,4 +109,30 @@ export const Q_PAGINATION = gql`
             count
         }
     }
+`;
+
+export const Q_SINGLE_ORDER = gql`
+  query SINGLE_ORDER_QUERY (
+    $id: ID!
+  )
+  {
+    Order(
+        where: {id: $id}
+    ) {
+      id
+      charge
+      items {
+       name
+       description
+       price
+       quantity
+       photo {
+       altText
+       image {
+       publicUrlTransformed
+       }
+       }
+      }
+    }
+  }
 `;

@@ -13,7 +13,7 @@ const LocalStateProvider = LocalStateContext.Provider;
 
 const CartStateProvider = ({ children }) => {
   const [cart, setCart] = React.useState([]);
-  const [showCart, setCartVisibility] = React.useState(true);
+  const [showCart, setCartVisibility] = React.useState(false);
 
   const addToCart = (item) => {
     setCart([...cart, item]);

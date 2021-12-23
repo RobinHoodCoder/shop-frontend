@@ -171,8 +171,8 @@ export const M_REMOVE_FROM_CART = gql`
     }
 `;
 
-export const CREATE_ORDER_MUTATION = gql`
-    mutation CREATE_ORDER_MUTATION($token: String!) {
+export const M_CREATE_ORDER = gql`
+    mutation M_CREATE_ORDER($token: String!) {
         checkout(token: $token) {
             id
             charge

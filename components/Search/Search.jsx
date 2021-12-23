@@ -11,14 +11,14 @@ import { DropDown, DropDownItem, SearchStyles } from '../styles/DropDown';
 export default function Search() {
   const router = useRouter();
 
-  resetIdCounter();
+
   const [findItems, { loading, data, error }] = useLazyQuery(
     Q_SEARCH_PRODUCTS,
     {
       fetchPolicy: 'no-cache',
     }
   );
-  const items = data?.searchTerms || [];
+  const items = data?.searchResult || [];
 
   /* const findItemsButChill = debounce(async (variables) => {
     console.log(variables, '?');
@@ -27,8 +27,9 @@ export default function Search() {
       await findItems(variables);
     }
   }, 350);*/
-  const findItemsButChill = debounce(findItems, 350);
+  const findItemsButChill = debounce(findItems, 1000);
 
+  resetIdCounter();
 
   const {
     isOpen,
@@ -39,13 +40,17 @@ export default function Search() {
     getItemProps,
     highlightedIndex,
   } = useCombobox({
-    items,
+    items: [],
     onInputValueChange() {
-      findItemsButChill({
-        variables: {
-          searchTerm: inputValue,
-        },
-      });
+      console.log('input Changed??');
+      console.log('rerender', { items });
+      if (!!inputValue) {
+        findItemsButChill({
+          variables: {
+            searchTerm: inputValue,
+          },
+        });
+      }
     },
     onSelectedItemChange({ selectedItem }) {
       console.log(selectedItem);
@@ -56,8 +61,11 @@ export default function Search() {
     itemToString: item => item?.name || '',
   });
 
+  useEffect(() => {
+    console.log(isOpen, { items });
+  }, [isOpen]);
 
-  console.log('rerender', { data, inputValue });
+
   return (
     <SearchStyles>
       {
@@ -90,7 +98,7 @@ export default function Search() {
           ))
         )}
         {isOpen && !items.length && !loading && (
-          <div>Sorry, No items found for {inputValue}</div>
+          <DropDownItem>Sorry, No items found for {inputValue}</DropDownItem>
         )}
       </DropDown>
     </SearchStyles>

@@ -5,7 +5,7 @@ import debounce from 'lodash.debounce';
 import { useRouter } from 'next/dist/client/router';
 import { Q_SEARCH_PRODUCTS } from '../../gql/queries';
 import { useCallback, useEffect } from 'react';
-import { useCart } from '../../context/CartState';
+import { SearchStyles } from '../styles/DropDown';
 
 export default function Search() {
   // const router = useRouter();
@@ -15,12 +15,18 @@ export default function Search() {
       fetchPolicy: 'network-only',
     }
   );
-  const items = !loading ? (data?.searchTerms || []) : [];
+  const items = !loading ? (data?.searchResults || []) : [];
 
-  const findItemsButChill = debounce(variables => findItems({ variables }), 350);
+  const findItemsButChill = (props) => {
+    console.log({ props });
+    const options = {
+      fetchPolicy: 'network-only',
+      ...props,
+    };
+    debounce(() => findItems(options), 300);
+  };
 
   resetIdCounter();
-
 
   const {
     isOpen,
@@ -32,8 +38,8 @@ export default function Search() {
     highlightedIndex,
   } = useCombobox({
     items,
-    onInputValueChange() {
-      console.log('inputValue', inputValue);
+    onInputValueChange({ inputValue }) {
+      console.log('inputValue', inputValue, data);
       return findItemsButChill({
         variables: {
           searchTerm: inputValue,
@@ -41,7 +47,7 @@ export default function Search() {
       });
     },
     onSelectedItemChange({ selectedItem }) {
-      console.log(selectedItem);
+      console.log({ selectedItem });
       // return router.push({
       //   pathname: `/product/${selectedItem.id}`,
       // });
@@ -50,13 +56,18 @@ export default function Search() {
   });
 
   useEffect(() => {
+    findItems({
+      variables: {
+        searchTerm: 'yeti',
+      },
+      fetchPolicy: 'network-only',
+    });
     findItemsButChill({ variables: { searchTerm: inputValue } });
   }, [inputValue]);
 
 
-  console.log('rerender', { data, inputValue });
   return (
-    <div>
+    <SearchStyles>
       {
         !isOpen && null
       }
@@ -90,6 +101,6 @@ export default function Search() {
           <div>Sorry, No items found for {inputValue}</div>
         )}
       </div>
-    </div>
+    </SearchStyles>
   );
 }

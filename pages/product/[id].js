@@ -3,7 +3,6 @@ import PDP from '../../components/PDP/PDP';
 
 const ProductPage = ({ query }) => {
   const { id } = query;
-  console.log(query);
   return (
     <PDP id={id}/>
   );

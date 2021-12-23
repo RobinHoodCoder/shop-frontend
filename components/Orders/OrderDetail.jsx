@@ -51,7 +51,6 @@ const OrderDetail = ({ orderId }) => {
           Order.items.map((item, i) => {
             const { altText: alt, image } = item.photo;
             const { publicUrlTransformed: src } = image;
-            console.log(item);
             return (
               <OrderItemStyles key={`${item.id}${i}`}>
                 <div>

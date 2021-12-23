@@ -37,12 +37,11 @@ const Checkout = (props) => {
     setError(null);
 
 
-    const { error: paymentError, paymentMethod, getElements } = await stripe.createPaymentMethod({
+    const { error: paymentError, paymentMethod } = await stripe.createPaymentMethod({
       type: 'card',
       card: elements.getElement(CardElement),
     });
 
-    setLoading(false);
     // 2. Start page transition
 
 
@@ -69,13 +68,14 @@ const Checkout = (props) => {
             pathname: `/order/${order?.data?.checkout?.id}`,
           });
         } catch (err) {
-          console.log(err);
+          setError(err);
         }
       }
     } catch (err) {
-      console.log(err);
+      setError(err);
     }
     // 7. Close the cart
+    setLoading(false);
     closeCart();
 
     // 7. View the order.
@@ -93,9 +93,6 @@ const Checkout = (props) => {
       return NProgress.done();
     };
   }, [loading, gqlError]);
-
-  console.log(data);
-
 
   return (
     <CheckoutFormStyles onSubmit={handleSubmit}>

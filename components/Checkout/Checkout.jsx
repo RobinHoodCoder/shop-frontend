@@ -95,7 +95,7 @@ const Checkout = (props) => {
     };
   }, [loading, gqlError]);
 
-  console.log(data);
+  console.log('rerendered checkout', data);
 
 
   return (

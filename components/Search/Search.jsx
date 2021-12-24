@@ -1,7 +1,5 @@
 import { useLazyQuery } from '@apollo/client';
 import { resetIdCounter, useCombobox } from 'downshift';
-import gql from 'graphql-tag';
-import debounce from 'lodash.debounce';
 import { useRouter } from 'next/dist/client/router';
 import { DropDown, DropDownItem, SearchStyles } from '../styles/DropDown';
 import { Q_SEARCH_PRODUCTS } from '../../gql/queries';
@@ -10,9 +8,10 @@ import { useEffect, useRef, useState } from 'react';
 export default function Search() {
   const router = useRouter();
   const [input, setInput] = useState('');
+  const [loading, setLoading] = useState(false);
   const inputRef = useRef('');
 
-  const [findItems, { loading, data, error }] = useLazyQuery(
+  const [findItems, { loading: dataLoading, data, error }] = useLazyQuery(
     Q_SEARCH_PRODUCTS,
     {
       fetchPolicy: 'no-cache',
@@ -35,8 +34,7 @@ export default function Search() {
       inputRef.current = inputValue;
     },
     onSelectedItemChange({ selectedItem }) {
-      console.log('changed to', selectedItem);
-      router.push({
+      return router.push({
         pathname: `/product/${selectedItem.id}`,
       });
     },
@@ -52,7 +50,6 @@ export default function Search() {
 
   useEffect(() => {
     if (inputRef.current === input) {
-      console.log('GO!');
       findItems({
         variables: {
           searchTerm: input,
@@ -60,6 +57,7 @@ export default function Search() {
       });
     }
   }, [findItems, input]);
+
 
   return (
     <SearchStyles>
@@ -69,10 +67,9 @@ export default function Search() {
             type: 'search',
             placeholder: 'Search for an Item',
             id: 'search',
-            className: loading ? 'loading' : '',
+            className: !!dataLoading ? 'loading' : '',
           })}
         />
-        <button type="submit">Submit</button>
       </div>
       <DropDown {...getMenuProps()}>
         {isOpen &&

@@ -18,9 +18,6 @@ const Cart = ({ open }) => {
   const total = formattedTotalPrice(cart);
 
   // const [cartItems, { loading, data, error }] = useQuery(Q_CART_ITEMS);
-  if (!userData) {
-    return null;
-  }
   return (
     <CartStyles open={showCart}>
 

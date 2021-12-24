@@ -9,5 +9,5 @@ export const useUser = (initital) => {
   const cart = authenticatedItem?.cart;
   const cartCount = cart?.reduce((acc, item) => acc + item.quantity, 0);
 
-  return [{ cartCount, ...authenticatedItem }, { cartCount, loading, error }];
+  return [cart, { cartCount, loading, error }];
 };

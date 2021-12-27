@@ -3,7 +3,7 @@ import { Q_CURRENT_USER } from '../gql/queries';
 
 export const useUser = (initital) => {
   const { data, loading, error } = useQuery(Q_CURRENT_USER);
-  console.log(data?.authenticatedItem?.cart);
+  // console.log(data?.authenticatedItem?.cart);
 
   const { authenticatedItem = {} } = data || {};
   const cart = authenticatedItem?.cart;

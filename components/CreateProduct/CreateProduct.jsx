@@ -38,9 +38,7 @@ const CreateProduct = (props) => {
   return (
     <Form onSubmit={async (e) => {
       e.preventDefault();
-      console.log(formValues);
-      const res = await createProduct();
-      console.log(res);
+      await createProduct();
     }}>
       <DisplayError error={error}/>
       <fieldset aria-busy={loading} disabled={loading}>

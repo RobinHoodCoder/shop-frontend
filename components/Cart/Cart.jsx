@@ -8,10 +8,9 @@ import { useCart } from '../../context/CartState';
 import Checkout from '../Checkout/Checkout';
 import CheckoutProvider from '../Checkout/CheckoutProvider';
 
-const Cart = ({ open }) => {
+const Cart = () => {
   const [userData, { error, loading }]  = useUser();
   const { showCart, toggleCart, ...rest } = useCart();
-  console.log(showCart, rest);
 
   const { cart = [] } = userData || {};
 

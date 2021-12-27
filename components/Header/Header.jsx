@@ -51,7 +51,7 @@ export default function Header() {
       <div className="sub-bar">
         <Search />
       </div>
-      <Cart open={true}/>
+      <Cart/>
     </HeaderStyles>
   );
 }

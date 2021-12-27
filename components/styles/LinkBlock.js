@@ -19,8 +19,6 @@ const LinkBlockStyles = styled.div`
 `;
 
 const LinkBlock = ({ children, href }) => {
-  console.log(href);
-  console.log(href);
   return (
     <LinkBlockStyles>
       <Link href={href}>

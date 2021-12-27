@@ -111,6 +111,29 @@ export const Q_PAGINATION = gql`
     }
 `;
 
+export const Q_ALL_ORDERS = gql`
+    query ALL_ORDERS_QUERY
+    {
+        allOrders
+        {
+            id
+            charge
+            items {
+                name
+                description
+                price
+                quantity
+                photo {
+                    altText
+                    image {
+                        publicUrlTransformed
+                    }
+                }
+            }
+        }
+    }
+`;
+
 export const Q_SINGLE_ORDER = gql`
   query SINGLE_ORDER_QUERY (
     $id: ID!

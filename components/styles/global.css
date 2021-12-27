@@ -5,7 +5,9 @@ html {
 	--gray: #444343;
 	--lightGrey: #909090;
 	--lightGray: #909090;
-	--off-white: #d0d0d0;
+	--off-white: #ffffff;
+	--white: #efefef;
+	--blue: #243a87;
 	font-size: 16px;
 	--bs: 0 9px 18px 0 rgba(0, 0, 0, 0.49);
 	box-sizing: border-box;

@@ -1,13 +1,12 @@
 import React from 'react';
-import { Link } from '../consts/exports';
+import OrderList from '../components/Orders/OrderList';
 
 const Orders = (props) => {
   const { dummy } = props;
 
   return (
     <div>
-      <Link href={''}>oke</Link>
-
+      <OrderList/>
     </div>
   );
 };

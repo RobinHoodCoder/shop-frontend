@@ -34,7 +34,8 @@ const Login = () => {
     const loggedIn = await login();
 
     const { item } = loggedIn?.data?.authenticateUserWithPassword;
-    !!item?.email ? await router.push('/sell') : resetForm(e);
+    !!item?.email && await router.push('/sell');
+    resetForm(e);
   };
 
   return (

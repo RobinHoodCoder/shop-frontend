@@ -1,13 +1,22 @@
 import { useQuery } from '@apollo/client';
 import { Q_CURRENT_USER } from '../gql/queries';
+import { formattedTotalPrice } from '../lib/calcTotalPrice';
 
 export const useUser = (initital) => {
   const { data, loading, error } = useQuery(Q_CURRENT_USER);
   // console.log(data?.authenticatedItem?.cart);
+  console.log(data?.authenticatedItem);
 
   const { authenticatedItem = {} } = data || {};
-  const cart = authenticatedItem?.cart;
-  const cartCount = cart?.reduce((acc, item) => acc + item.quantity, 0);
+  const { cart, email, id, name } = authenticatedItem;
 
-  return [cart, { cartCount, loading, error }];
+  const count = cart?.reduce((acc, item) => acc + item.quantity, 0);
+  const total = formattedTotalPrice(cart);
+
+  const userData = {
+    cart: { items: cart, count, total },  email, id, name,
+  };
+
+
+  return [userData, { loading, error }];
 };

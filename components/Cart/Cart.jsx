@@ -12,9 +12,7 @@ const Cart = () => {
   const [userData, { error, loading }]  = useUser();
   const { showCart, toggleCart, ...rest } = useCart();
 
-  const { cart = [] } = userData || {};
-
-  const total = formattedTotalPrice(cart);
+  // const total = formattedTotalPrice(user?.cart?.items);
 
   // const [cartItems, { loading, data, error }] = useQuery(Q_CART_ITEMS);
   return (
@@ -27,7 +25,7 @@ const Cart = () => {
 
       <ul>
         {
-          cart?.map?.((item) => {
+          userData?.cart?.items?.map?.((item) => {
             const { product, quantity, id } = item;
             return (
               <CartItem
@@ -42,7 +40,7 @@ const Cart = () => {
         }
       </ul>
       <footer>
-        {total}
+        {userData?.cart?.total}
         <CheckoutProvider>
           <Checkout />
         </CheckoutProvider>

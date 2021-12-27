@@ -19,7 +19,7 @@ const Cart = () => {
     <CartStyles open={showCart}>
 
       <header>
-        <Supreme>{userData?.name}'s card</Supreme>
+        <Supreme>{userData?.name}'s cart</Supreme>
         <button onClick={toggleCart}>&times;</button>
       </header>
 

@@ -29,13 +29,11 @@ const AccountEditor = () => {
   const {
     formValues,
     handleChange,
-    resetForm,
-    clearForm,
   } = useForm(
     data || initialState
   );
 
-  const { email, name, id } = data || initialState;
+  const { email, name, id } = formValues;
 
   const [updateUser, { data: updatedData, loading: updatedLoading }]  = useMutation(M_UPDATE_USER, {
     variables: { name, email, id },
@@ -60,8 +58,8 @@ const AccountEditor = () => {
       >
         <DisplayError error={error || updateError} />
         <fieldset
-          aria-busy={updateLoading || loading}
-          disabled={updateLoading || loading}
+          aria-busy={updatedLoading || loading}
+          disabled={updatedLoading || loading}
         >
 
           <label htmlFor="name">
@@ -73,6 +71,17 @@ const AccountEditor = () => {
               placeholder={'name'}
               onChange={e => handleChange(e)}
               value={formValues.name}
+            />
+          </label>
+          <label htmlFor="email">
+                Email
+            <input
+              type="email"
+              id={'email'}
+              name={'email'}
+              placeholder={'email'}
+              onChange={e => handleChange(e)}
+              value={email}
             />
           </label>
           {/* <label htmlFor="image">
@@ -87,25 +96,10 @@ const AccountEditor = () => {
             />
           </label>*/}
         </fieldset>
-        {
-          data?.name && (
-            <p>
-              {data.name}
-              <a href={`/product/${data?.id}`}> | Preview</a>
-            </p>
-          )
-        }
-
         <button type={'submit'}>
-                + Update my details
+            Update
         </button>
         <hr />
-        <button onClick={resetForm}>
-                Reset form
-        </button>
-        <button onClick={clearForm}>
-                Clear form
-        </button>
       </Form>
     </div>
   );

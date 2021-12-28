@@ -53,9 +53,30 @@ export const M_UPDATE_PRODUCT = gql`
 #        }
       }
     ) {
-      id
-      price
+      name
       description
+      price
+      id
+    }
+  }
+`;
+
+export const M_UPDATE_USER = gql`
+  mutation UPDATE_USER (
+    $magicAuthToken: String
+    $id: ID!
+    $name: String!
+    $email: String!
+    #    $image: Upload
+  ) {
+    updateUser(
+      id: $id
+      data: {
+        magicAuthToken: $magicAuthToken
+        name: $name
+        email: $email
+      }
+    ) {
       name
       id
     }

@@ -4,7 +4,8 @@ import { useForm } from '../../lib/useForm';
 import DisplayError from '../Errors/ErrorMessage';
 import Form from '../styles/Form';
 import { Q_SINGLE_PRODUCT } from '../../gql/queries';
-import { M_UPDATE_PRODUCT } from '../../gql/mutations';
+import { M_UPDATE_PRODUCT, M_UPDATE_USER } from '../../gql/mutations';
+import { useUser } from '../../hooks';
 
 const initialState = {
   name: '',
@@ -13,25 +14,17 @@ const initialState = {
   description: '',
 };
 
-const AccountEditor = ({ id }) => {
-  const {
-    data,
-    error,
-    loading,
-  } = useQuery(
-    Q_SINGLE_PRODUCT,
-    {
-      variables: { id },
-    }
-  );
-
+const AccountEditor = () => {
+  const [error, setError] = React.useState(null);
+  const [loading, setLoading] = React.useState(null);
   const [
-    updateProduct,
+    data,
     {
-      loading: updateLoading,
       error: updateError,
+      loading: updateLoading,
     },
-  ] = useMutation(M_UPDATE_PRODUCT);
+  ] = useUser();
+
 
   const {
     formValues,
@@ -39,23 +32,25 @@ const AccountEditor = ({ id }) => {
     resetForm,
     clearForm,
   } = useForm(
-    data?.Product || initialState
+    data || initialState
   );
+
+  const { email, name, id } = data || initialState;
+
+  const [updateUser, { data: updatedData, loading: updatedLoading }]  = useMutation(M_UPDATE_USER, {
+    variables: { name, email, id },
+  });
+
 
   const handleUpdate = async (e) => {
     e.preventDefault();
-    const { ...rest } = formValues;
     // Keep image as is...
-    updateProduct({
-      variables: {
-        id,
-        ...rest,
-      },
-    }).then((response) => {
+    updateUser().then((response) => {
       console.log(response);
     })
       .catch((updateError) => {
-        console.error(updateError);
+        // throw new Error(updateError);
+        console.error('[Could not update user]', updateError);
       });
   };
   return (
@@ -80,28 +75,7 @@ const AccountEditor = ({ id }) => {
               value={formValues.name}
             />
           </label>
-          <label htmlFor="description">
-                    Description
-            <textarea
-              id={'description'}
-              name={'description'}
-              placeholder={'description'}
-              onChange={e => handleChange(e)}
-              value={formValues.description}
-            />
-          </label>
-          <label htmlFor="price">
-                    Price
-            <input
-              type="number"
-              id={'price'}
-              name={'price'}
-              placeholder={'price'}
-              onChange={e => handleChange(e)}
-              value={formValues.price}
-            />
-          </label>
-          <label htmlFor="image">
+          {/* <label htmlFor="image">
                     Image
             <input
               type="file"
@@ -111,21 +85,20 @@ const AccountEditor = ({ id }) => {
               onChange={e => handleChange(e)}
               value={formValues.file}
             />
-          </label>
+          </label>*/}
         </fieldset>
         {
           data?.name && (
             <p>
               {data.name}
-              <a href={`/product/${data?.id}`}>Preview></a>
+              <a href={`/product/${data?.id}`}> | Preview</a>
             </p>
           )
         }
 
         <button type={'submit'}>
-                + Update Product
+                + Update my details
         </button>
-
         <hr />
         <button onClick={resetForm}>
                 Reset form

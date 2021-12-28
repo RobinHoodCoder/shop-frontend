@@ -1,12 +1,17 @@
 import React from 'react';
-import Page from '../components/Page';
+import PleaseSignIn from '../components/PleaseSignIn/PleaseSignIn';
+import AccountEditor from '../components/ProductEditor/AccountEditor';
 
-const Account = (props) => {
+const SellPage = (props) => {
+  const { dummy } = props;
+
   return (
     <div>
-      <p>Account page</p>
+      <PleaseSignIn>
+        <AccountEditor />
+      </PleaseSignIn>
     </div>
   );
 };
 
-export default Account;
+export default SellPage;

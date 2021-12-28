@@ -1,10 +1,10 @@
-import EditProduct from '../components/ProductEditor/ProductEditor';
+import ProductEditor from '../components/ProductEditor/ProductEditor';
 
 const Edit = ({ query }) => {
   // console.log({ query });
   return (
     <div>
-      <EditProduct id={query.id}/>
+      <ProductEditor id={query.id}/>
     </div>
   );
 };

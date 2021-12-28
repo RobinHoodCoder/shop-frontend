@@ -10,10 +10,10 @@ import { Link } from '../../../consts/exports';
 import { useRouter } from 'next/router';
 
 const ChangePassword = ({ query }) => {
-  const { token, email: qEmail } = query;
+  const { token, email: qEmail = '' } = query;
   const router = useRouter();
 
-  console.log({ qEmail });
+
   const { formValues, handleChange, resetForm } = useForm({
     email: qEmail,
     password: '',
@@ -57,7 +57,15 @@ const ChangePassword = ({ query }) => {
     }
     if (redeemUserPasswordResetToken === null) {
       setError(null);
-      toast('Changed password!');
+      toast('Password changed!');
+      setTimeout(() => {
+        return router.push({
+          pathname: '/login',
+          query: {
+            email,
+          },
+        });
+      }, 1000);
     }
   }, [data, error, loading, redeemUserPasswordResetToken, reqError]);
 
@@ -98,7 +106,7 @@ const ChangePassword = ({ query }) => {
             name={'password'}
           />
         </label>
-        <SickButton>
+        <SickButton type="submit">
         Change password
         </SickButton>
         &nbsp;<span onClick={resetToken}>Try another email</span>

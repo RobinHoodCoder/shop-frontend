@@ -67,6 +67,7 @@ const RequestReset = () => {
           />
         </label>
         <SickButton
+          type={'submit'}
         >
         Send reset email
         </SickButton>

@@ -8,7 +8,15 @@ export const useUser = (initital) => {
   console.log(data?.authenticatedItem);
 
   const { authenticatedItem = {} } = data || {};
+  if (!authenticatedItem) {
+    return [
+      { cart: null },
+      { loading, error },
+    ];
+  }
+
   const { cart, email, id, name } = authenticatedItem;
+
 
   const count = cart?.reduce((acc, item) => acc + item.quantity, 0);
   const total = formattedTotalPrice(cart);

@@ -47,7 +47,6 @@ export default function Search() {
     }, 1000);
     return () => clearTimeout(timer);
   }, [inputRef.current]);
-
   useEffect(() => {
     if (inputRef.current === input) {
       findItems({

@@ -12,7 +12,7 @@ export default function Nav() {
     <NavStyles>
       <Link href="/products">Products</Link>
       {
-        !!userData && (
+        !!userData?.cart && (
           <>
             <Link href="/sell">Sell</Link>
             <Link href="/orders">Orders</Link>
@@ -25,7 +25,7 @@ export default function Nav() {
           </>
         )}
       {
-        !userData && (
+        !userData?.cart && (
           <>
             <Link href={'/login'}>Sign in</Link>
           </>

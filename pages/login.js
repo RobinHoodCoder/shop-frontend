@@ -4,7 +4,7 @@ import SignUp from '../components/SignUp/SignUp';
 import styled from 'styled-components';
 
 
-const LoginPage = () => {
+const LoginPage = ({ query }) => {
   const GridStyles = styled.div`
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -12,7 +12,7 @@ const LoginPage = () => {
 `;
   return (
     <GridStyles>
-      <Login/>
+      <Login query={query}/>
       <SignUp/>
     </GridStyles>
   );

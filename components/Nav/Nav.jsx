@@ -6,7 +6,7 @@ import CartCount from '../Cart/CartCount/CartCount';
 
 export default function Nav() {
   const [userData] = useUser();
-  const { cart } = userData;
+  const { cart } = userData || {};
   const { openCart } = useCart();
   return (
     <NavStyles>

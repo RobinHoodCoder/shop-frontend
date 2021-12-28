@@ -9,8 +9,8 @@ import DisplayError from '../Errors/ErrorMessage';
 import { useRouter } from 'next/router';
 import { Link } from '../../consts/exports';
 
-const Login = ({ query }) => {
-  const { email: qEmail = ''   } = query;
+const Login = ({ query = {} }) => {
+  const { email: qEmail = ''  } = query;
   const router = useRouter();
   const { formValues, clearForm, handleChange, resetForm } = useForm({
     email: qEmail,

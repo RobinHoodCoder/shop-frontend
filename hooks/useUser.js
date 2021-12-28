@@ -10,7 +10,7 @@ export const useUser = (initital) => {
   const { authenticatedItem = {} } = data || {};
   if (!authenticatedItem) {
     return [
-      { cart: null },
+      null,
       { loading, error },
     ];
   }

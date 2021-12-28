@@ -5,7 +5,7 @@ import SickButton from '../styles/SickButton';
 import NProgress from 'nprogress';
 import { CheckoutError } from '../Errors/';
 import { useMutation } from '@apollo/client';
-import { CREATE_ORDER_MUTATION, M_CREATE_ORDER } from '../../gql/mutations';
+import { M_CREATE_ORDER } from '../../gql/mutations';
 import { useRouter } from 'next/dist/client/router';
 import { useCart } from '../../context/CartState';
 import { Q_CURRENT_USER } from '../../gql/queries';
@@ -67,7 +67,7 @@ const Checkout = (props) => {
         try {
           console.log(order);
           await router.push({
-            pathname: `/order/${order?.data?.checkout?.id}`,
+            pathname: `/orders/${order?.data?.checkout?.id}`,
           });
         } catch (err) {
           console.log(err);

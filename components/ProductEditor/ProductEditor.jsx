@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useMutation, useQuery } from '@apollo/client';
 import { useForm } from '../../lib/useForm';
 import DisplayError from '../Errors/ErrorMessage';
@@ -6,12 +6,6 @@ import Form from '../styles/Form';
 import { Q_SINGLE_PRODUCT } from '../../gql/queries';
 import { M_UPDATE_PRODUCT } from '../../gql/mutations';
 
-const initialState = {
-  name: '',
-  price: '',
-  image: '',
-  description: '',
-};
 
 const ProductEditor = ({ id }) => {
   const {
@@ -24,6 +18,8 @@ const ProductEditor = ({ id }) => {
       variables: { id },
     }
   );
+
+  const productData = data?.Product;
 
   const [
     updateProduct,
@@ -39,17 +35,16 @@ const ProductEditor = ({ id }) => {
     resetForm,
     clearForm,
   } = useForm(
-    data?.Product || initialState
+    productData,
   );
 
   const handleUpdate = async (e) => {
     e.preventDefault();
-    const { ...rest } = formValues;
     // Keep image as is...
     updateProduct({
       variables: {
+        ...formValues,
         id,
-        ...rest,
       },
     }).then((response) => {
       console.log(response);

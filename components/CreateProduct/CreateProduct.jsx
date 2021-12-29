@@ -30,7 +30,7 @@ const CreateProduct = (props) => {
   const [createProduct, { loading, error, data }] = useMutation(
     M_CREATE_PRODUCT,
     {
-      variables: { slug, ...formValues },
+      variables: { ...formValues },
       refetchQueries: [{ query: Q_ALL_PRODUCTS }],
     }
   );

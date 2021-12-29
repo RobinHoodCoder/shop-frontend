@@ -23,7 +23,7 @@ const Ankeiler = (props) => {
           src={imageSrc}
         />
         {price && (
-          <PriceTag>
+          <PriceTag data-testid={`price`}>
             {formatMoney(price)}
           </PriceTag>
         )}

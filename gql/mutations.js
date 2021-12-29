@@ -21,7 +21,6 @@ export const M_CREATE_PRODUCT = gql`
                 }
             }
         ) {
-            id
             price
             description
             name

@@ -4,15 +4,14 @@ import Price from '../Price/Price';
 import styled from 'styled-components';
 import Description from '../styles/Description';
 
+const TitleBlockStyles = styled.div`
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+`;
+
 const TitleBlock = (props) => {
   const { name, description, price, centered } = props;
-
-  const TitleBlockStyles = styled.div`
-    text-align: ${!!centered ? centered : 'left'};
-    display: flex;
-    flex-direction:column;
-    gap: 10px;
-  `;
 
   return (
     <TitleBlockStyles>

@@ -1,7 +1,7 @@
 import { useLazyQuery } from '@apollo/client';
 import { resetIdCounter, useCombobox } from 'downshift';
 import { useRouter } from 'next/dist/client/router';
-import { DropDown, DropDownItem, SearchStyles } from '../styles/DropDown';
+import { StyledSearchContainer, DropDownItem, ResultBox } from '../styles/StyledSearchElements';
 import { Q_SEARCH_PRODUCTS } from '../../gql/queries';
 import { useEffect, useRef, useState } from 'react';
 
@@ -41,6 +41,7 @@ export default function Search() {
     itemToString: item => item?.name || '',
   });
 
+
   useEffect(() => {
     const timer = setTimeout(() => {
       setInput(inputRef.current);
@@ -59,37 +60,44 @@ export default function Search() {
 
 
   return (
-    <SearchStyles>
+    <StyledSearchContainer>
       <div {...getComboboxProps()}>
         <input
           {...getInputProps({
             type: 'search',
             placeholder: 'Search for an Item',
             id: 'search',
-            className: !!dataLoading ? 'loading' : '',
+            className: !!dataLoading || loading ? 'loading' : '',
           })}
         />
       </div>
-      <DropDown {...getMenuProps()}>
-        {isOpen &&
-          items.map((item, index) => (
-            <DropDownItem
-              {...getItemProps({ item, index })}
-              key={item.id}
-              highlighted={index === highlightedIndex}
-            >
-              <img
-                src={item.photo.image.publicUrlTransformed}
-                alt={item.name}
-                width="50"
-              />
-              {item.name}
-            </DropDownItem>
-          ))}
-        {isOpen && !items.length && !loading && (
-          <DropDownItem>Sorry, No items found for {inputValue}</DropDownItem>
-        )}
-      </DropDown>
-    </SearchStyles>
+      {!!isOpen && (
+        <ResultBox {...getMenuProps()}>
+          {
+            isOpen && (
+              items?.map?.((item, index) => (
+                <DropDownItem
+                  {...getItemProps({ item, index })}
+                  key={item.id}
+                  highlighted={index === highlightedIndex}
+                >
+                  <img
+                    src={item.photo.image.publicUrlTransformed}
+                    alt={item.name}
+                    width="50"
+                  />
+                  {item.name}
+                </DropDownItem>
+              ))
+            )
+          }
+          {
+            !!isOpen && !loading && !items?.length && (
+              <DropDownItem>Sorry, No items found for {inputValue}</DropDownItem>
+            )
+          }
+        </ResultBox>
+      )}
+    </StyledSearchContainer>
   );
 }

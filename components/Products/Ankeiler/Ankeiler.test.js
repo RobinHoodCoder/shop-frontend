@@ -7,7 +7,6 @@ import { Q_SINGLE_PRODUCT } from '../../../gql/queries';
 
 const product = fakeItem();
 
-
 const mocks = [
   {
     // When someone requests this query and variable combo

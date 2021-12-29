@@ -43,6 +43,7 @@ export default function Search() {
 
 
   useEffect(() => {
+    setLoading(true);
     const timer = setTimeout(() => {
       setInput(inputRef.current);
     }, 1000);
@@ -50,6 +51,7 @@ export default function Search() {
   }, [inputRef.current]);
   useEffect(() => {
     if (inputRef.current === input) {
+      setLoading(false);
       findItems({
         variables: {
           searchTerm: input,

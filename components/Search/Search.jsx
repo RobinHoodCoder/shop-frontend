@@ -47,10 +47,16 @@ export default function Search() {
     const timer = setTimeout(() => {
       setInput(inputRef.current);
     }, 1000);
-    return () => clearTimeout(timer);
+    return () => {
+      clearTimeout(timer);
+      setLoading(false);
+    };
   }, [inputRef.current]);
   useEffect(() => {
-    if (inputRef.current === input) {
+    if (!input) {
+      setLoading(false);
+    }
+    if (inputRef.current === input && !!input) {
       setLoading(false);
       findItems({
         variables: {
@@ -59,6 +65,9 @@ export default function Search() {
       });
     }
   }, [findItems, input]);
+
+  const notFound = !items.length;
+  const text = !!loading ? 'Looking for your product' : '';
 
 
   return (
@@ -73,33 +82,39 @@ export default function Search() {
           })}
         />
       </div>
-      {!!isOpen && (
-        <ResultBox {...getMenuProps()}>
-          {
-            isOpen && (
-              items?.map?.((item, index) => (
-                <DropDownItem
-                  {...getItemProps({ item, index })}
-                  key={item.id}
-                  highlighted={index === highlightedIndex}
-                >
-                  <img
-                    src={item.photo.image.publicUrlTransformed}
-                    alt={item.name}
-                    width="50"
-                  />
-                  {item.name}
-                </DropDownItem>
-              ))
-            )
-          }
-          {
-            !!isOpen && !loading && !items?.length && (
-              <DropDownItem>Sorry, No items found for {inputValue}</DropDownItem>
-            )
-          }
-        </ResultBox>
-      )}
+      <ResultBox {...getMenuProps()} isOpen={isOpen}>
+        {
+          !!isOpen && !loading && (
+            items?.map?.((item, index) => (
+              <DropDownItem
+                {...getItemProps({ item, index })}
+                key={item.id}
+                highlighted={index === highlightedIndex}
+              >
+                <img
+                  src={item.photo.image.publicUrlTransformed}
+                  alt={item.name}
+                  width="50"
+                />
+                {item.name}
+              </DropDownItem>
+            ))
+          )
+        }
+        {
+
+
+          <DropDownItem>{}</DropDownItem>
+
+
+        }
+        {
+          !loading && !items.length && (
+            <DropDownItem>Sorry, No items found for {inputValue}</DropDownItem>
+          )
+        }
+      </ResultBox>
+
     </StyledSearchContainer>
   );
 }

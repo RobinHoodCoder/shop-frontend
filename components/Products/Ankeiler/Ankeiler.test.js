@@ -25,7 +25,7 @@ const mocks = [
   },
 ];
 
-describe(`<Product/>`, () => {
+describe(`<Product/> price`, () => {
   it(`Renders the component`, () => {
     expect(true)
       .toBe(true);
@@ -36,6 +36,21 @@ describe(`<Product/>`, () => {
       </MockedProvider>,
     );
     expect(screen.getByTestId('price', { exact: false })).toBeInTheDocument();
+    debug();
+  });
+});
+
+describe(`<Product/> markup matches snapshot`, () => {
+  it(`Renders the component, matches the snapshot`, () => {
+    const { container, debug } = render(
+      <MockedProvider mocks={mocks}>
+        <Ankeiler {...product}>Test</Ankeiler>
+      </MockedProvider>,
+    );
+
+    expect(container).toMatchSnapshot();
+    expect(screen.getByTestId('price', { exact: false }))
+      .toBeInTheDocument();
     debug();
   });
 });

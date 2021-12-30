@@ -1,0 +1,127 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Product/> markup matches snapshot Renders the component, matches the snapshot 1`] = `
+<div>
+  <div
+    class="ItemStyles__Item-sc-16pk14u-0 fAxeyb"
+  >
+    <div
+      class="LinkBlock__LinkBlockStyles-sc-1vgdqsk-0 gKDMie"
+    >
+      <div>
+        <img
+          alt="dogs are best"
+          src="dog.jpg"
+        />
+        <span
+          class="PriceTag-sc-nwbk6t-0 iCGkBe"
+          data-testid="price"
+        >
+          €50
+        </span>
+        <div
+          class="TitleBlock__TitleBlockStyles-sc-1oa93hk-0 EzZnr"
+        >
+          <h3
+            class="Title-sc-16nq74k-0 jKqyec"
+          >
+            <span>
+              dogs are best
+            </span>
+          </h3>
+          <p
+            class="Description-sc-1etfdho-0 jCgNpW"
+          >
+            <span>
+              dogs
+            </span>
+          </p>
+        </div>
+      </div>
+    </div>
+    <div
+      class="buttonList"
+    >
+      <button>
+        🗑️
+      </button>
+      <div>
+        <a
+          href="/edit?id=abc123"
+        >
+          🖊️
+        </a>
+      </div>
+      <button
+        type="button"
+      >
+        Add
+         To Cart 🛒
+      </button>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`<Product/> matches snapshot Renders the component, matches the snapshot 1`] = `
+<div>
+  <div
+    class="ItemStyles__Item-sc-16pk14u-0 fAxeyb"
+  >
+    <div
+      class="LinkBlock__LinkBlockStyles-sc-1vgdqsk-0 gKDMie"
+    >
+      <div>
+        <img
+          alt="dogs are best"
+          src="dog.jpg"
+        />
+        <span
+          class="PriceTag-sc-nwbk6t-0 iCGkBe"
+          data-testid="price"
+        >
+          €50
+        </span>
+        <div
+          class="TitleBlock__TitleBlockStyles-sc-1oa93hk-0 EzZnr"
+        >
+          <h3
+            class="Title-sc-16nq74k-0 jKqyec"
+          >
+            <span>
+              dogs are best
+            </span>
+          </h3>
+          <p
+            class="Description-sc-1etfdho-0 jCgNpW"
+          >
+            <span>
+              dogs
+            </span>
+          </p>
+        </div>
+      </div>
+    </div>
+    <div
+      class="buttonList"
+    >
+      <button>
+        🗑️
+      </button>
+      <div>
+        <a
+          href="/edit?id=abc123"
+        >
+          🖊️
+        </a>
+      </div>
+      <button
+        type="button"
+      >
+        Add
+         To Cart 🛒
+      </button>
+    </div>
+  </div>
+</div>
+`;

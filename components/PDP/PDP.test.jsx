@@ -1,12 +1,11 @@
-import { getByTestId, render, screen } from '@testing-library/react';
-import { MockedProvider } from '@apollo/client/testing';
-import PDP from './PDP';
-import { Q_SINGLE_PRODUCT } from '../../gql/queries';
+import { render, screen } from '@testing-library/react';
+import { MockedProvider } from '@apollo/react-testing';
 import { fakeItem } from '../../lib/testUtils';
-import '@testing-library/jest-dom';
-import Ankeiler from '../Products/Ankeiler/Ankeiler';
+import { Q_SINGLE_PRODUCT } from '../../gql/queries';
+import PDP from './PDP';
 
 const product = fakeItem();
+
 const mocks = [
   {
     // When someone requests this query and variable combo
@@ -25,26 +24,43 @@ const mocks = [
   },
 ];
 
-describe(`<PDP/> markup matches snapshot`, () => {
-  it(`Renders the component, matches the snapshot`, async () => {
+describe('<PDP/>', () => {
+  it('renders with proper data', async () => {
+    // We need to make some fake data
     const { container, debug } = render(
       <MockedProvider mocks={mocks}>
-        <PDP {...product} />
-      </MockedProvider>,
+        <PDP id="123" />
+      </MockedProvider>
     );
+    // Wait for the test ID to show up
+    await screen.findByTestId('price');
     expect(container)
       .toMatchSnapshot();
-    debug();
   });
-  it('should have a price tag ', async () => {
-    render(
-      <MockedProvider mocks={mocks}>
-        <PDP id={product.id} />
-      </MockedProvider>,
+
+  it('Errors out when an item is no found', async () => {
+    const errorMock = [
+      {
+        request: {
+          query: Q_SINGLE_PRODUCT,
+          variables: {
+            id: '123',
+          },
+        },
+        result: {
+          errors: [{ message: 'Item not found!!!' }],
+        },
+      },
+    ];
+    const { container, debug } = render(
+      <MockedProvider mocks={errorMock}>
+        <PDP id="123" />
+      </MockedProvider>
     );
-
-    await screen.getByTestId('price', {});
-
-    // expect(items).toBeInTheDocument();
+    await screen.findByTestId('graphql-error');
+    expect(container)
+      .toHaveTextContent('Shoot!');
+    expect(container)
+      .toHaveTextContent('Item not found!!!');
   });
 });

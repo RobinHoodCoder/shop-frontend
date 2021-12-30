@@ -59,16 +59,20 @@ const PDP = ({ id }) => {
                 centered
               />
               <Price amount={price}/>
-              <Link href={{
-                pathname: '/edit',
-                query: {
-                  id,
-                },
-              }}>
-                <FontAwesomeIcon
-                  size="2x"
-                  icon={faEdit}
-                />
+              <Link
+                as={'button'}
+                href={{
+                  pathname: '/edit',
+                  query: {
+                    id,
+                  },
+                }}>
+                <div>
+                  <FontAwesomeIcon
+                    size="2x"
+                    icon={faEdit}
+                  />
+                </div>
               </Link>
               <AddToCartButton id={id}/>
             </div>

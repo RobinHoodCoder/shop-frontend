@@ -3,6 +3,7 @@ import { MockedProvider } from '@apollo/react-testing';
 import { fakeItem } from '../../lib/testUtils';
 import { Q_SINGLE_PRODUCT } from '../../gql/queries';
 import PDP from './PDP';
+import { GraphQLError } from 'graphql';
 
 const product = fakeItem();
 
@@ -48,8 +49,9 @@ describe('<PDP/>', () => {
           },
         },
         result: {
-          errors: [{ message: 'Item not found!!!' }],
+          errors: [new GraphQLError('Error!')],
         },
+        // error: new Error('Error!'),
       },
     ];
     const { container, debug } = render(
